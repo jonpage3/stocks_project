@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>visualizing stocks</title>
+</head>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+<body>
+
+<h1>Search a stock</h1>
+
+<br>
+<br>
+
+<form id="stock-search">
+	<label for="name">Enter stock ticker:</label><br>
+		<input type="text" id="name" name="name"><br>
+	<br>
+	<label for ="first_money">Money to invest:</label><br>
+		<input type ="text" id="first_money" name="first_money"><br>
+	<input class="new-search" type="submit" value="Submit">
+</form>
+<span><span id="result"></span></span>
+
+<script>
+    function stockSubmit(ev) {
+      ev.preventDefault();
+      var request = new XMLHttpRequest();
+      request.addEventListener('load', stockShow);
+      request.open('POST', "{{ url_for('return_stock_info') }}");
+      request.send(new FormData(this));
+    }
+
+    function stockShow() {
+      var data = this.responseText;
+	  console.log(data)
+      var span = document.getElementById('result');
+      span.innerHTML = data;
+    }
+
+    var form = document.getElementById('stock-search');
+    form.addEventListener('submit', stockSubmit);
+</script>
+</body>
+</html>

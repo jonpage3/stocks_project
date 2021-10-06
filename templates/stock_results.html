@@ -1,14 +1,14 @@
-<!DOCTYPE html>
+
 
 <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 <body>
 
-<h1>{{request.name}} Stock Results</h1>
-<h1>Money Invested: {{request.first_money}}</h1>
+<h1>{{name}} Stock Results</h1>
+<h1>Money Invested: {{first_money}}</h1>
 
 <br>
 <br>
-<p>Money earned from MACD method: {{earnings}}</p>
+<h1>Money earned from MACD method: {{earnings}}</h1>
 <br>
 <a rel="collection" href="{{ url_for('home') }}">New Search</a>
 <br>

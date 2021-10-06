@@ -64,9 +64,9 @@ def md(name, first_money, df):
 class Home(Resource):
 
     def get(self):
-        return make_response(render_template('home.html'),'200')
+        return make_response(render_template('index.html'),'200')
 
-class Stock_results(Resource):
+"""class Stock_results(Resource):
 
     def get(self):
         request = new_request_parser.parse_args()
@@ -99,19 +99,56 @@ class Stock_results(Resource):
             result = 'Not valid Stock, check the ticker symbol'
 
 
-        return make_response(render_template('stock_results.html',
+        return make_response(render_template('home.html',
                                              request=request, earnings=results[0],
                                              tables=[results[1].to_html(classes='data')],
                                              titles=results[1].columns.values,
-                                             result=result), '200')
+                                             result=result), '200') """
+
+
 
 app = Flask(__name__)
 api = Api(app)
 api.add_resource(Home,'/home')
-api.add_resource(Stock_results,'/stock_results')
+#api.add_resource(Stock_results,'/stock_results')
+
+@app.route('/search',methods=["POST"])
+def return_stock_info():
+    name = request.form.get("name")
+    #first_money = request.form.get("first_money")
+    try:
+        first_money = float(request.form.get("first_money"))
+    except ValueError:
+        result = 'enter a valid number for money'
+        first_money = request.form.get("first_money")
+
+    yesterday = datetime.datetime.now() - datetime.timedelta(days=1)
+    yesterday.strftime('%Y-%m-%d')
+
+    try:
+        df = pdr.get_data_yahoo(name, end=yesterday)
+        result = ''
+        if isinstance(first_money, float):
+            results = md(name, first_money, df)
+        else:
+            empty_df = pd.DataFrame()
+            empty_df['nothing to see here'] = 'nothing to see here'
+            results = (0, empty_df)
+            result = "Please enter a valid money amount."
+    except Exception:
+        empty_df = pd.DataFrame()
+        empty_df['nothing to see here'] = 'nothing to see here'
+        results = (0, empty_df)
+        result = 'Not valid Stock, check the ticker symbol'
+
+    return render_template('stock_results.html',name=name,first_money=first_money, earnings=results[0],
+                                             tables=[results[1].to_html(classes='data')],
+                                             titles=results[1].columns.values,
+                                             result=result),200
 
 @app.route('/')
 def index():
+
     return redirect(api.url_for(Home), code=303)
 
 if __name__ == '__main__':

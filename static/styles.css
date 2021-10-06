@@ -6,3 +6,8 @@ text-align: center;
 h1 {
 color: #7BAFD4;
 }
+
+h2 {
+color: green;
+text-align: left;
+}

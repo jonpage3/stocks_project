@@ -5,7 +5,7 @@
 
 <br>
 <br>
-<form action ="/stock_results" method="get">
+<form action ="{{ url_for('stocks_results')}}" method="get">
 	<label for="name">Enter stock ticker:</label><br>
 		<input type="text" id="name" name="name"><br>
 	<br>

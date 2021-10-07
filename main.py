@@ -1,5 +1,5 @@
 from flask import (Flask, Response, request, render_template, make_response,
-                   redirect, url_for)
+                   redirect, url_for,jsonify)
 from flask_restful import Api, Resource, reqparse, abort
 import yfinance as yf
 import matplotlib.pyplot as plt
@@ -96,11 +96,18 @@ def return_stock_info():
         results = (0, empty_df)
         result = 'Not valid Stock, check the ticker symbol'
 
-    #this could also render data in json format with jsonify
+
     return render_template('stock_results.html',name=name,first_money=first_money, earnings=results[0],
-                                             tables=[results[1].to_html(classes='data')],
-                                             titles=results[1].columns.values,
-                                             result=result),200
+                                           tables=[results[1].to_html(classes='data')],
+                                            titles=results[1].columns.values,
+                                            result=result),200
+
+    # use this to render data in json format with jsonify
+    #figure out different way to orient dataframes 
+    #return jsonify(name=name,first_money=first_money, earnings=results[0],
+    #                                     cashflow=results[1].to_json(orient="columns"),
+    #                                    #titles=results[1].columns.values,
+    #                                       result=result)
 
 
 @app.route('/')

@@ -23,17 +23,21 @@
 	<input class="new-search" type="submit" value="Submit">
 </form>
 <span id="result" ></span>
+<svg id="stock_svg" style="width: 1000px; height: 400px;"></svg>
 
 <script>
     function stockSubmit(ev) {
       ev.preventDefault();
       var request = new XMLHttpRequest();
       request.addEventListener('load', stockShow);
-      request.open('POST', "{{ url_for('return_stock_info') }}");
+      request.open('POST', "{{ url_for('return_stock_info')}}");
       request.send(new FormData(this));
     }
 
     function stockShow() {
+      //console.log(this.responseText);
+      //if you want to data in json
+      //var data = JSON.parse(this.responseText);
       var data = this.responseText;
 	  console.log(data)
       var span = document.getElementById('result');

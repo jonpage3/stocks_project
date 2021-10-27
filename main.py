@@ -103,11 +103,11 @@ def return_stock_info():
                                             result=result),200
 
     # use this to render data in json format with jsonify
-    #figure out different way to orient dataframes 
+    #figure out different way to orient dataframes
     #return jsonify(name=name,first_money=first_money, earnings=results[0],
     #                                     cashflow=results[1].to_json(orient="columns"),
-    #                                    #titles=results[1].columns.values,
-    #                                       result=result)
+    #                                    titles=results[1].columns.values,
+    #                                     result=result)
 
 
 @app.route('/')

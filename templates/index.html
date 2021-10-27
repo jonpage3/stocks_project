@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<script src="stock_vis.js"></script>
 <head>
     <meta charset="UTF-8">
     <title>visualizing stocks</title>
@@ -42,6 +43,10 @@
 	  console.log(data)
       var span = document.getElementById('result');
       span.innerHTML = data;
+
+      //idea for how to code stock visualization
+      //uncomment the following
+      //var vis = new StockVis("stock_svg",data)
     }
 
     var form = document.getElementById('stock-search');

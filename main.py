@@ -96,18 +96,18 @@ def return_stock_info():
         results = (0, empty_df)
         result = 'Not valid Stock, check the ticker symbol'
 
-
-    return render_template('stock_results.html',name=name,first_money=first_money, earnings=results[0],
-                                           tables=[results[1].to_html(classes='data')],
-                                            titles=results[1].columns.values,
-                                            result=result),200
+    # code for returning html using the stock_results.html template
+    #return render_template('stock_results.html',name=name,first_money=first_money, earnings=results[0],
+    #                                       tables=[results[1].to_html(classes='data')],
+    #                                        titles=results[1].columns.values,
+    #                                        result=result),200
 
     # use this to render data in json format with jsonify
     #figure out different way to orient dataframes
-    #return jsonify(name=name,first_money=first_money, earnings=results[0],
-    #                                     cashflow=results[1].to_json(orient="columns"),
+    return jsonify(name=name,first_money=first_money, earnings=results[0],result=result)
+    #                                    cashflow=results[1].to_json(orient="columns"),
     #                                    titles=results[1].columns.values,
-    #                                     result=result)
+    #                                   result=result)
 
 
 @app.route('/')

@@ -17,6 +17,7 @@ def md(name, first_money, df):
     # data = data[:100]
     df = df[:]
     # df[['Close', 'ma5', 'ma30']].plot()
+    #
     # plt.show()
 
     sr1 = df['ma5'] < df['ma30']

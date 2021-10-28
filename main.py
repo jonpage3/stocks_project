@@ -102,7 +102,7 @@ def return_stock_info():
     #                                        titles=results[1].columns.values,
     #                                        result=result),200
 
-    # use this to render data in json format with jsonify
+    # do this to render data in json format with jsonify
     #figure out different way to orient dataframes
     return jsonify(name=name,first_money=first_money, earnings=results[0],result=result)
     #                                    cashflow=results[1].to_json(orient="columns"),

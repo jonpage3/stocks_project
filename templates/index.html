@@ -1,29 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <script src="https://d3js.org/d3.v7.min.js"></script>
+<!--jquery to help with listbox -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Load icon library not sure if this works-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <script src="{{ url_for('static', filename='stock_vis.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 <head>
     <meta charset="UTF-8">
-    <title>visualizing stocks</title>
+    <title>Stocks - Add stock item into stock viewer.</title>
+    <!--reference for adding items to listbox:https://www.includehelp.com/code-snippets/javascript-add-user-entered-item-into-listbox.aspx-->
+    <script type="text/javascript">
+        function insertStockIntoViewer() {
+            var x = document.getElementById("stock-list");
+            var item = document.getElementById("name").value;
+            var option = document.createElement("option");
+            option.text = item;
+            x.add(option);
+            //alert(item + " has been added.");
+            document.getElementById('name').value = ''
+        }
+    </script>
 </head>
 
-<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+<body style="text-align: left;">
 
-<body>
+<h1>Stocks - Add stock into StockViewer.</h1>
+<p><big>Enter your stock: </big></p>
 
-<h1>Search a stock</h1>
 
-<br>
-<br>
+<form id="stock-search" class="stock-search">
+<p><input type="text" placeholder="stock ticker.." id="name"/>
+  <input type="button" onclick="insertStockIntoViewer()" value="Insert into Stock Viewer"></p>
 
-<form id="stock-search">
-	<label for="name">Enter stock ticker:</label><br>
-		<input type="text" id="name" name="name"><br>
-	<br>
-	<label for ="first_money">Money to invest:</label><br>
-		<input type ="text" id="first_money" name="first_money"><br>
-	<input class="new-search" type="submit" value="Submit">
+	<!--<label for ="first_money">Money to invest:</label><br>
+		<input type ="text" id="first_money" name="first_money"><br>-->
+	<!--<input class="new-search" type="submit" value="Submit">-->
+  <!--<select id="stock-list" multiple="multiple" size="20" style="width:200px;">
+      <option></option>
+  </select>-->
+
+  <!--reference for limiting selected options:https://stackoverflow.com/questions/30474614/multiple-select-limit-number-of-selection/30475067.-->
+      <script type="text/javascript">
+          $(document).ready(function() {
+            var last_valid_selection = null;
+            $('#stock-list').change(function(event) {
+              if ($(this).val().length > 2) {
+                $(this).val(last_valid_selection);
+              } else {
+                last_valid_selection = $(this).val();
+              }
+            });
+          });
+          </script>
+
 </form>
+<select id="stock-list" multiple="multiple" size="20" style="width:200px;">
+    
+</select>
 <span id="result" ></span>
 <svg id="stock_svg" ></svg>
 
@@ -41,7 +78,7 @@
       //if you want to data in json
       let data = JSON.parse(this.responseText);
       //var data = this.responseText;
-	  console.log(data)
+	    console.log(data)
       var span = document.getElementById('result');
       span.innerHTML = data;
 

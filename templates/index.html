@@ -19,6 +19,7 @@
             var item = document.getElementById("name").value;
             var option = document.createElement("option");
             option.text = item;
+            option.value = item;
             x.add(option);
             //alert(item + " has been added.");
             document.getElementById('name').value = ''
@@ -58,9 +59,11 @@
           </script>
 
 </form>
+
+<form id="stock-select">
 <select id="stock-list" multiple="multiple" size="20" style="width:200px;">
-    
 </select>
+</form>
 <span id="result" ></span>
 <svg id="stock_svg" ></svg>
 
@@ -88,8 +91,8 @@
       vis.render();
     }
 
-    var form = document.getElementById('stock-search');
-    form.addEventListener('submit', stockSubmit);
+    var form = document.getElementById('stock-select');
+    form.addEventListener('change', stockSubmit);
 </script>
 </body>
 </html>

@@ -71,35 +71,11 @@ api.add_resource(Home,'/home')
 @app.route('/search',methods=["POST"])
 def return_stock_info():
     name = request.form.get("name")
-
-    #are currently not using investment money
-    """
-    try:
-        first_money = float(request.form.get("first_money"))
-    except ValueError:
-        result = 'enter a valid number for money'
-        first_money = request.form.get("first_money")
-    """
+    stock = yf.Ticker(name)
+    stock_info = stock.info
     yesterday = datetime.datetime.now() - datetime.timedelta(days=1)
     yesterday.strftime('%Y-%m-%d')
 
-    """
-    try:
-        df = pdr.get_data_yahoo(name, end=yesterday)
-        result = ''
-        if isinstance(first_money, float):
-            results = md(name, first_money, df)
-        else:
-            empty_df = pd.DataFrame()
-            empty_df['nothing to see here'] = 'nothing to see here'
-            results = (0, empty_df)
-            result = "Please enter a valid money amount."
-    except Exception:
-        empty_df = pd.DataFrame()
-        empty_df['nothing to see here'] = 'nothing to see here'
-        results = (0, empty_df)
-        result = 'Not valid Stock, check the ticker symbol'
-    """
 
     # code for returning html using the stock_results.html template
     #return render_template('stock_results.html',name=name,first_money=first_money, earnings=results[0],
@@ -109,12 +85,7 @@ def return_stock_info():
 
     # use this to render data in json format with jsonify
     #figure out different way to orient dataframes
-    return jsonify(name=name)
-    #result=result)
-    #               first_money=first_money, earnings=results[0],result=result)
-    #                                    cashflow=results[1].to_json(orient="columns"),
-    #                                    titles=results[1].columns.values,
-    #                                   result=result)
+    return jsonify(name=name,stock_info=stock_info)
 
 
 @app.route('/')

@@ -8,6 +8,7 @@ class StockVis {
     render() {
 
         let name = this.data.name
+        let average_volume = this.data.stock_info.averageVolume
         //none of this works yet
         let svg = d3.select(this.svg_id);
         let stock_mark = svg.selectAll(".stock").data(this.data)
@@ -20,6 +21,8 @@ class StockVis {
 
         //this works which proves the files are all connected
         console.log(name+ ": the files are talking with each other")
+        console.log("the average daily volume is: " + average_volume)
+
 
     }
 }

@@ -77,11 +77,11 @@
     }
 
     function stockShow() {
-      console.log(this.responseText);
+      //console.log(this.responseText);
       //if you want to data in json
       let data = JSON.parse(this.responseText);
       //var data = this.responseText;
-	    console.log(data)
+	    //console.log(data)
       var span = document.getElementById('result');
       span.innerHTML = data;
 

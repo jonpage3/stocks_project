@@ -1,0 +1,30 @@
+#are currently not using investment money
+#this is the code we were using for the investment money MACD analysis
+#currently only variable is the stock ticker -- JEP 11/12/2021
+    """
+    try:
+        first_money = float(request.form.get("first_money"))
+    except ValueError:
+        result = 'enter a valid number for money'
+        first_money = request.form.get("first_money")
+    """
+    yesterday = datetime.datetime.now() - datetime.timedelta(days=1)
+    yesterday.strftime('%Y-%m-%d')
+
+    """
+    try:
+        df = pdr.get_data_yahoo(name, end=yesterday)
+        result = ''
+        if isinstance(first_money, float):
+            results = md(name, first_money, df)
+        else:
+            empty_df = pd.DataFrame()
+            empty_df['nothing to see here'] = 'nothing to see here'
+            results = (0, empty_df)
+            result = "Please enter a valid money amount."
+    except Exception:
+        empty_df = pd.DataFrame()
+        empty_df['nothing to see here'] = 'nothing to see here'
+        results = (0, empty_df)
+        result = 'Not valid Stock, check the ticker symbol'
+    """

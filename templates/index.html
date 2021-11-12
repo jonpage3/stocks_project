@@ -61,7 +61,7 @@
 </form>
 
 <form id="stock-select">
-<select id="stock-list" multiple="multiple" size="20" style="width:200px;">
+<select id="stock-list" name="name" multiple="multiple" size="20" style="width:200px;">
 </select>
 </form>
 <span id="result" ></span>
@@ -92,6 +92,7 @@
     }
 
     var form = document.getElementById('stock-select');
+    console.log(form)
     form.addEventListener('change', stockSubmit);
 </script>
 </body>

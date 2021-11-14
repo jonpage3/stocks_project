@@ -1,0 +1,20 @@
+<html>
+<head>
+    <script src="https://d3js.org/d3.v7.min.js" charset="utf-8"></script>
+    <script src="rsi_vis.js"></script>
+
+</head>
+<body>
+<br/>
+<!-- This is where we'll draw the visualization! -->
+<svg id="rsi_canvas" style="height:600px; width:800px; border: 1px solid black;"></svg>
+
+<div id="details"></div>
+<script>
+
+    rsi_vis = new RSIVis("rsi_canvas", data);
+    rsi_vis.render();
+</script>
+</body>
+
+</html>

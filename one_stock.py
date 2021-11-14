@@ -11,7 +11,7 @@ def main():
     all_stocks = []
 
     name = input('Stock abb ')
-    first_money = input('Money ')
+    first_money = int(input('Money '))
 
     all_stocks.append(name)
     stock = yf.Ticker(name)
@@ -37,6 +37,7 @@ def main():
     common_size_bs, \
     common_size_is, \
     common_size_cf = methods.common_size(stock)
+
 
     return json.dumps(stock.info), macd_result, df.to_json(), common_size_bs.to_json(), \
            common_size_is.to_json(), common_size_cf.to_json(),

@@ -1,18 +1,18 @@
 import one_stock
-import MTP
 import json
 
 
 def main():
 
-    one_stock = True
+    one = True
 
     # get one stock data
-    if one_stock is True:
+    if one is True:
         return one_stock.main()
 
-    # get combinations
     else:
+        import MTP
+
         return json.dumps(MTP.port_variance.tolist()),\
                json.dumps(MTP.port_returns.tolist()), \
                json.dumps(MTP.target_variance.tolist()),\

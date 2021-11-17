@@ -15,7 +15,9 @@ for (const [timestamp,rsi] of Object.entries(rsi_data_object)) {
 
 let rsi_data = d3.zip(rsi_dates,rsi_values)
 */
-class RSIVis  {
+
+
+class DHVis  {
     constructor(container_id,vis_data){
         this.container_id = container_id;
         this.data = vis_data;
@@ -33,27 +35,27 @@ class RSIVis  {
     render () {
         let thisvis = this
 
-        let rsi_data_object = this.data.RSI
-        console.log(rsi_data_object)
-        let rsi_dates = []
-        let rsi_values = []
-        for (const [timestamp,rsi] of Object.entries(rsi_data_object)) {
-        if (rsi != null) {
+        let dh_data_object = this.data.High
+        console.log(dh_data_object)
+        let dh_dates = []
+        let dh_values = []
+        for (const [timestamp,dh] of Object.entries(dh_data_object)) {
+        if (dh != null) {
         let date = new Date(+timestamp);
-        rsi_dates.push(date);
-        rsi_values.push(rsi);
+        dh_dates.push(date);
+        dh_values.push(dh);
         }
 }
-        let rsi_data = d3.zip(rsi_dates,rsi_values)
+        let dh_data = d3.zip(dh_dates,dh_values)
         //console.log(rsi_data)
 
         // Create scales for x and y axis.
-        let dataXrange = d3.extent(rsi_dates,function(d) {return d;})
+        let dataXrange = d3.extent(dh_dates,function(d) {return d;})
         console.log(dataXrange)
         thisvis.x = d3.scaleTime()
             .domain(dataXrange)
             .range([this.margin,this.width-this.margin]);
-        let dataYrange = d3.extent(rsi_values,function(d) {return d;})
+        let dataYrange = d3.extent(dh_values,function(d) {return d;})
         console.log(dataYrange)
         thisvis.y = d3.scaleLinear()
             .domain(dataYrange.reverse())
@@ -82,7 +84,7 @@ class RSIVis  {
             .curve(d3.curveCardinal);
 
         this.svg.append("path")
-            .data([rsi_data])
+            .data([dh_data])
             .attr("class", "line")
             .attr("d",valueline);
 

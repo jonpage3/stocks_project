@@ -39,7 +39,13 @@ def main():
     common_size_cf = methods.common_size(stock)
 
 
-    return json.dumps(stock.info), macd_result, df.to_json(), common_size_bs.to_json(), \
-           common_size_is.to_json(), common_size_cf.to_json(),
+    #return json.dumps(stock.info), macd_result, df.to_json(), common_size_bs.to_json(), \
+           #common_size_is.to_json(), common_size_cf.to_json(),
+    return df.to_json()
+
+data = main()
+print(data)
+
+
 
 

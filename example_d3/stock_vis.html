@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://d3js.org/d3.v7.min.js" charset="utf-8"></script>
+    <script src="ex_stock_vis.js"></script>
+
+</head>
+<body>
+<br/>
+<style>
+    path.line {
+        fill: none;
+        stroke: blue;
+        stroke-width: 3px;
+    }
+</style>
+Show:
+<select id="show_select" onchange="vis.setShowMode(this.value);">
+    <option value="High">High</option>
+    <option value="Volume">Volume</option>
+    <option value="CCI">CCI</option>
+    <option value="RSI">RSI</option>
+</select>
+<!-- This is where we'll draw the visualization! -->
+<div id="stock_vis" ></div>
+
+<div id="details"></div>
+<script>
+
+    vis = new StockVis("stock_vis", data);
+    vis.render();
+</script>
+
+
+</body>
+</html>

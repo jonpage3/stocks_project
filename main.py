@@ -5,7 +5,10 @@ import yfinance as yf
 import matplotlib.pyplot as plt
 import pandas as pd
 from pandas_datareader import data as pdr
+from pandas_datareader._utils import RemoteDataError
+import methods
 import datetime
+import sys
 import webbrowser
 
 #helper functions for data analysis
@@ -72,10 +75,15 @@ api.add_resource(Home,'/home')
 def return_stock_info():
     name = request.form.get("name")
     stock = yf.Ticker(name)
-    stock_info = stock.info
+    #stock_info = stock.info
     yesterday = datetime.datetime.now() - datetime.timedelta(days=1)
     yesterday.strftime('%Y-%m-%d')
-
+    df = pdr.get_data_yahoo(name, end=yesterday)
+    df['ma5'] = df.loc[:, 'Close'].rolling(5).mean()
+    df['ma30'] = df.loc[:, 'Close'].rolling(30).mean()
+    df = methods.get_CCI(df, 14)
+    rsi = methods.RSI(df.loc[:, 'Close'], 14)
+    df['RSI'] = rsi
 
     # code for returning html using the stock_results.html template
     #return render_template('stock_results.html',name=name,first_money=first_money, earnings=results[0],
@@ -85,8 +93,8 @@ def return_stock_info():
 
     # use this to render data in json format with jsonify
     #figure out different way to orient dataframes
-    return jsonify(name=name,stock_info=stock_info)
-
+    #return jsonify(name=name,stock_info=stock_info)
+    return df.to_json()
 
 @app.route('/')
 def index():

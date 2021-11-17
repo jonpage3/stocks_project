@@ -27,6 +27,16 @@
     </script>
 </head>
 
+<!--style for the path that's being drawn in the viz-->
+<style>
+    path.line {
+        fill: none;
+        stroke: blue;
+        stroke-width: 3px;
+    }
+</style>
+
+
 <body style="text-align: left;">
 
 <h1>Stocks - Add stock into StockViewer.</h1>
@@ -65,7 +75,7 @@
 </select>
 </form>
 <span id="result" ></span>
-<svg id="stock_svg" ></svg>
+<div id="stock_vis" ></div>
 
 <script>
     function stockSubmit(ev) {
@@ -77,17 +87,14 @@
     }
 
     function stockShow() {
-      console.log(this.responseText);
-      //if you want to data in json
+
+      //data in json 
       let data = JSON.parse(this.responseText);
-      //var data = this.responseText;
-	    //console.log(data)
-      var span = document.getElementById('result');
-      span.innerHTML = data;
+      console.log(data);
+
 
       //idea for how to code stock visualization
-      //uncomment the following
-      var vis = new StockVis("stock_svg",data);
+      var vis = new StockVis("stock_vis",data);
       vis.render();
     }
 

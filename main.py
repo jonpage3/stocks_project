@@ -54,6 +54,7 @@ def return_stock_info():
             unix_string = str(int(datetime.datetime.timestamp(dat_conv)* 1000))
             stock_data[key][unix_string] = df_dict[key][key2]
     stock_data['name'] = name
+    stock_data["stock_info"] = stock.info
     #uncomment to check that stock_data is right
     #print(stock_data)
     #turn stock_data dictionary into json

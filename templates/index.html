@@ -87,11 +87,10 @@
     }
 
     function stockShow() {
-
+      console.log(this.responseText);
       //data in json 
       let data = JSON.parse(this.responseText);
       console.log(data);
-
 
       //idea for how to code stock visualization
       var vis = new StockVis("stock_vis",data);
@@ -99,8 +98,9 @@
     }
 
     var form = document.getElementById('stock-select');
-    //console.log(form)
+
     form.addEventListener('change', stockSubmit);
+    //console.log(form)
 </script>
 </body>
 </html>

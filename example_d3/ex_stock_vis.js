@@ -13,7 +13,7 @@ class StockVis  {
         this.height = 500;
         this.width = 500;
         this.margin = 40;
-        
+
     }
 
     setShowMode(new_mode) {
@@ -86,9 +86,7 @@ class StockVis  {
             .data([stock_data])
             .attr("class", "line")
             .attr("d",valueline);
-
-
-
+        
 }
 }
 

@@ -8,7 +8,10 @@ from pandas_datareader import data as pdr
 from pandas_datareader._utils import RemoteDataError
 import methods
 import datetime
+import simplejson as json
+
 import sys
+import time
 import webbrowser
 
 #helper functions for data analysis
@@ -85,17 +88,31 @@ def return_stock_info():
     rsi = methods.RSI(df.loc[:, 'Close'], 14)
     df['RSI'] = rsi
 
-    # code for returning html using the stock_results.html template
-    #return render_template('stock_results.html',name=name,first_money=first_money, earnings=results[0],
-    #                                       tables=[results[1].to_html(classes='data')],
-    #                                        titles=results[1].columns.values,
-    #                                        result=result),200
 
-    # use this to render data in json format with jsonify
-    #figure out different way to orient dataframes
-    #return jsonify(name=name,stock_info=stock_info)
-    return df.to_json()
 
+    #the following code allows us to add stock data
+    #to a dictionary
+    #first convert df to dict
+    df_dict = df.to_dict()
+    #initialize stock data dict
+    stock_data = {}
+    #this for loop specifies all the data is of the right timestamp
+    for key in df_dict:
+        stock_data[key] = {}
+        for key2,val in df_dict[key].items():
+            dat_conv = key2.to_pydatetime()
+            unix_string = str(int(datetime.datetime.timestamp(dat_conv)* 1000))
+            stock_data[key][unix_string] = df_dict[key][key2]
+    stock_data['name'] = name
+    #uncomment to check that stock_data is right
+    #print(stock_data)
+    #turn stock_data dictionary into json
+    stock_json = json.dumps(stock_data, ignore_nan=True)
+    # uncomment to check that stock_json is right
+    #print(stock_json)
+    return stock_json
+
+    #return df.to_json()
 @app.route('/')
 def index():
     return redirect(api.url_for(Home), code=303)

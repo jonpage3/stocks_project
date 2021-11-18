@@ -8,6 +8,7 @@ class StockVis {
         this.width = 500;
         this.margin = 40;
 
+
         this.svg = d3.select("#"+container_id)
             .append("svg")
             .attr("width", this.width)
@@ -16,7 +17,7 @@ class StockVis {
 
     render () {
         let thisvis = this
-
+        let name = this.data.name;
         //clean the data first
         let dh_data_object = this.data.High
         console.log(dh_data_object)
@@ -71,6 +72,12 @@ class StockVis {
             .attr("class", "line")
             .attr("d",valueline);
 
+        this.svg.append("text")
+            .attr("x", (this.width / 2))
+            .attr("y", this.margin)
+            .attr("text-anchor", "middle")
+            .style("font-size", "16px")
+            .text(name + ": Daily High");
 
     }
 }

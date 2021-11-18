@@ -6,6 +6,7 @@
 
 <!-- Load icon library not sure if this works-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 
 <script src="{{ url_for('static', filename='stock_vis.js') }}"></script>
 <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
@@ -39,13 +40,30 @@
 
 <body style="text-align: left;">
 
-<h1>Stocks - Add stock into StockViewer.</h1>
-<p><big>Enter your stock: </big></p>
+
+<h1 class="title">Stocks - Add stock into StockViewer.</h1>
 
 
 <form id="stock-search" class="stock-search">
-<p><input type="text" placeholder="stock ticker.." id="name"/>
-  <input type="button" onclick="insertStockIntoViewer()" value="Insert into Stock Viewer"></p>
+<p><div class="field">
+    <label class="label">Enter Stock Ticker Here:</label>
+    <div class="control">
+      <input class="input" type="text" placeholder="$TICK" id="name"/>
+    </div>
+  </div>
+  <div class="field">
+    <div class="control">
+      <button class="button is-link" type="submit" onclick="insertStockIntoViewer()">Insert into Stock Viewer</button></p>
+    </div>
+  </div>
+  <div class="tabs">
+    <ul>
+      <li class="is-active"><a>$MSFT</a></li>
+      <li><a>$META</a></li>
+      <li><a>$TSLA</a></li>
+      <li><a>$AAPL</a></li>
+    </ul>
+  </div>
 
 	<!--<label for ="first_money">Money to invest:</label><br>
 		<input type ="text" id="first_money" name="first_money"><br>-->
@@ -71,8 +89,10 @@
 </form>
 
 <form id="stock-select">
-<select id="stock-list" name="name" multiple="multiple" size="20" style="width:200px;">
-</select>
+  <div class="select is-multiple">
+    <select id="stock-list" name="name" multiple="multiple" size="20" style="width:200px;">
+    </select>
+  </div>
 </form>
 <span id="result" ></span>
 <div id="stock_vis" ></div>

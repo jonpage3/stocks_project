@@ -32,8 +32,11 @@
 <style>
     path.line {
         fill: none;
-        stroke: blue;
-        stroke-width: 3px;
+        stroke: darkseagreen;
+        stroke-width: 1px;
+    }
+    #stock_vis {
+        float: right;
     }
 </style>
 
@@ -95,7 +98,7 @@
   </div>
 </form>
 <span id="result" ></span>
-<div id="stock_vis" ></div>
+<div id="stock_vis" class="stockvis"></div>
 
 <script>
     function stockSubmit(ev) {

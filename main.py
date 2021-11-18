@@ -14,54 +14,6 @@ import sys
 import time
 import webbrowser
 
-#helper functions for data analysis
-#these functions will be use by function
-#return_stock_info
-def md(name, first_money, df):
-    df['ma5'] = df.loc[:, 'Close'].rolling(5).mean()
-    df['ma30'] = df.loc[:, 'Close'].rolling(30).mean()
-    # data = data[:100]
-    df = df[:]
-    # df[['Close', 'ma5', 'ma30']].plot()
-    #
-    # plt.show()
-
-    sr1 = df['ma5'] < df['ma30']
-    sr2 = df['ma5'] >= df['ma30']
-
-    death_cross = df[sr1 & sr2.shift(1)].index
-    golden_cross = df[-(sr1 | sr2.shift(1))].index
-
-    money = first_money
-    hold = 0
-    sr1 = pd.Series(1, index=golden_cross)
-    sr2 = pd.Series(0, index=death_cross)
-    sr = sr1.append(sr2)
-
-    sr = sr.sort_index()
-
-    for i in range(0, len(sr)):
-        price = df['Open'][sr.index[i]]
-        if sr.iloc[i] == 1:
-            buy = money // (100 * price)
-
-            hold += buy * 100
-            money -= buy * 100 * price
-        else:
-            money += hold * price
-            hold = 0
-
-    price = df['Open'][-1]
-    now_money = hold * price + money
-    earnings = int(now_money - first_money)
-
-    stock = yf.Ticker(name)
-    # stock cashflow
-    stock_cf = stock.cashflow
-
-    return earnings, stock_cf
-
-
 # home page of search
 class Home(Resource):
 
@@ -88,15 +40,13 @@ def return_stock_info():
     rsi = methods.RSI(df.loc[:, 'Close'], 14)
     df['RSI'] = rsi
 
-
-
     #the following code allows us to add stock data
     #to a dictionary
     #first convert df to dict
     df_dict = df.to_dict()
     #initialize stock data dict
     stock_data = {}
-    #this for loop specifies all the data is of the right timestamp
+    #this for loop specifies all the data has the right timestamp
     for key in df_dict:
         stock_data[key] = {}
         for key2,val in df_dict[key].items():

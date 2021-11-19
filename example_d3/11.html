@@ -10,14 +10,17 @@
 <style>
     path.line {
         fill: none;
-        stroke: darkseagreen;
+        /*stroke: darkseagreen;*/
         stroke-width: 1px;
     }
 </style>
 Show:
 <select id="show_select" onchange="vis.setShowMode(this.value);">
+    <option value="Open">Open</option>
     <option value="High">High</option>
+    <option value="Close">Close</option>
     <option value="Volume">Volume</option>
+    <option value="MACD">MACD</option>
     <option value="CCI">CCI</option>
     <option value="RSI">RSI</option>
 </select>

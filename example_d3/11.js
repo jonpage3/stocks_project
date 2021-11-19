@@ -2,15 +2,12 @@ let data = {"High":{"1479081600000":39.8800010681,"1479168000000":40.0299987793,
 
 
 
-
-
-
 class StockVis  {
     constructor(container_id,vis_data){
         this.container_id = container_id;
         this.data = vis_data;
 
-        this.show_mode = "High";
+        this.show_mode = "Open";
 
         this.height = 500;
         this.width = 500;
@@ -62,10 +59,17 @@ class StockVis  {
 
         let thisvis = this
         let name = this.data.name
-        console.log(name)
+
+
+
+        console.log(this.show_mode)
+
         let stock_data_object = thisvis.data[this.show_mode]
-        //let stock_data_object = this.data.(this.show_mode)
-        //clean the data
+
+
+        if (this.show_mode === 'MACD'){
+            stock_data_object = thisvis.data.ma5
+        }
 
 
         let stock_dates = []
@@ -78,11 +82,9 @@ class StockVis  {
         }}
         let stock_data = d3.zip(stock_dates,stock_values)
 
+
+
         let dataYrange = d3.extent(stock_values,function(d) {return d;})
-
-        console.log(this.dataYrange)
-
-
         let xx = d3.scaleTime()
             .domain(this.dataXrange)
             .range([this.margin,this.width-this.margin]);
@@ -104,10 +106,6 @@ class StockVis  {
             .attr("transform", "translate("+this.margin+",0)")
             .call(d3.axisLeft(yy))
 
-
-
-
-
         const valueline = d3
             .line()
             .x(function(d) {return xx(d[0]); })
@@ -115,10 +113,68 @@ class StockVis  {
             .curve(d3.curveCardinal);
 
 
-        this.svg.append("path")
-            .data([stock_data])
-            .attr("class", "line")
-            .attr("d",valueline);
+
+
+        if (this.show_mode !== 'MACD'){
+            this.svg.append("path")
+                .data([stock_data])
+                .attr("class", "line")
+                .attr("d",valueline)
+                .attr("stroke", "darkseagreen");
+            this.svg.append("text")
+                .attr("x", (this.width / 2))
+                .attr("y", this.margin)
+                .attr("text-anchor", "middle")
+                .style("font-size", "16px")
+                .text(name + ": " + this.show_mode);
+
+        }else{
+
+            this.svg.append("path")
+                .data([stock_data])
+                .attr("class", "line")
+                .attr("d",valueline)
+                .attr("stroke", "darkseagreen");
+
+
+            let stock_data_object2 = thisvis.data.ma30
+
+
+            let stock_dates2 = []
+            let stock_values2 = []
+            for (const [timestamp,val] of Object.entries(stock_data_object2)) {
+                if (val != null) {
+                let date = new Date(+timestamp);
+                stock_dates2.push(date);
+                stock_values2.push(val);
+            }}
+            let stock_data2 = d3.zip(stock_dates2,stock_values2)
+
+
+            const valueline2 = d3
+                .line()
+                .x(function(d) {return xx(d[0]); })
+                .y(function(d) { return yy(d[1]); })
+                .curve(d3.curveCardinal);
+
+            this.svg.append("path")
+                .data([stock_data2])
+                .attr("class", "line")
+                .attr("d",valueline2)
+                .attr("stroke", "purple");
+
+            this.svg.append("text")
+            .attr("x", (this.width / 2))
+            .attr("y", this.margin)
+            .attr("text-anchor", "middle")
+            .style("font-size", "16px")
+            .text(name + ": " + 'MACD');
+
+
+        }
+
+
+
 
 
 

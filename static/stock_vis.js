@@ -4,80 +4,164 @@ class StockVis {
         this.container_id = container_id;
         this.data = vis_data;
 
+        //set default show mode
+        this.show_mode = "Open";
+
         this.height = 500;
         this.width = 500;
         this.margin = 40;
 
 
-        this.svg = d3.select("#"+container_id)
+        this.stock_data_object = this.data[this.show_mode]
+
+        this.stock_dates = []
+        this.stock_values = []
+        for (const [timestamp,val] of Object.entries(this.stock_data_object)) {
+            if (val != null) {
+                let date = new Date(+timestamp);
+                this.stock_dates.push(date);
+                this.stock_values.push(val);
+            }}
+
+        this.stock_data = d3.zip(this.stock_dates,this.stock_values)
+
+        this.dataXrange = d3.extent(this.stock_dates,function(d) {return d;})
+        this.dataYrange = d3.extent(this.stock_values,function(d) {return d;})
+
+        this.svg = d3.select("#"+ container_id)
             .append("svg")
+            .attr("class","stock_chart")
             .attr("width", this.width)
             .attr("height", this.height);
+
+        this.svg.x = d3.scaleTime()
+            .domain(this.dataXrange)
+            .range([this.margin,this.width-this.margin]);
+
+        this.svg.y = d3.scaleLinear()
+            .domain(this.dataYrange.reverse())
+            .range([this.margin,this.height-this.margin]);
+
+    }
+
+    setShowMode(new_mode) {
+        this.show_mode = new_mode;
+        this.render();
     }
 
     render () {
-        let thisvis = this
-        let name = this.data.name;
-        //clean the data first
-        let dh_data_object = this.data.High
-        console.log(dh_data_object)
-        let dh_dates = []
-        let dh_values = []
-        for (const [timestamp,dh] of Object.entries(dh_data_object)) {
-            if (dh != null) {
-                let date = new Date(+timestamp);
-                dh_dates.push(date);
-                dh_values.push(dh);
-            }
-        }
-        let dh_data = d3.zip(dh_dates,dh_values)
-        //console.log(rsi_data)
 
-        // Create scales for x and y axis.
-        let dataXrange = d3.extent(dh_dates,function(d) {return d;})
-        console.log(dataXrange)
-        thisvis.x = d3.scaleTime()
-            .domain(dataXrange)
+        d3.selectAll("svg > *").remove();
+
+        let thisvis = this
+        let name = this.data.name
+
+        console.log(this.show_mode)
+
+        let stock_data_object = thisvis.data[this.show_mode]
+
+
+        if (this.show_mode === 'MACD'){
+            stock_data_object = thisvis.data.ma5
+        }
+
+
+        let stock_dates = []
+        let stock_values = []
+        for (const [timestamp,val] of Object.entries(stock_data_object)) {
+            if (val != null) {
+                let date = new Date(+timestamp);
+                stock_dates.push(date);
+                stock_values.push(val);
+            }}
+        let stock_data = d3.zip(stock_dates,stock_values)
+
+
+
+        let dataYrange = d3.extent(stock_values,function(d) {return d;})
+        let xx = d3.scaleTime()
+            .domain(this.dataXrange)
             .range([this.margin,this.width-this.margin]);
-        let dataYrange = d3.extent(dh_values,function(d) {return d;})
-        console.log(dataYrange)
-        thisvis.y = d3.scaleLinear()
+
+        let yy = d3.scaleLinear()
             .domain(dataYrange.reverse())
             .range([this.margin,this.height-this.margin]);
 
-        //this.x.ticks(d3.timeMonth);
 
-        // Add x axis
+
         this.svg.append("g")
             .attr("class", "axis")
             .attr("transform", "translate(0,"+(500-this.margin)+")")
-            .call(d3.axisBottom(this.x).ticks(d3.timeYear));
+            .call(d3.axisBottom(this.svg.x));
 
-
-        // Now the Y axis and label.
         this.svg.append("g")
             .attr("class", "axis")
             .attr("transform", "translate("+this.margin+",0)")
-            .call(d3.axisLeft(this.y));
+            .call(d3.axisLeft(yy))
 
-        //now draw the line
         const valueline = d3
             .line()
-            .x(function(d) {return thisvis.x(d[0]); })
-            .y(function(d) { return thisvis.y(d[1]); })
+            .x(function(d) {return xx(d[0]); })
+            .y(function(d) { return yy(d[1]); })
             .curve(d3.curveCardinal);
 
-        this.svg.append("path")
-            .data([dh_data])
-            .attr("class", "line")
-            .attr("d",valueline);
 
-        this.svg.append("text")
-            .attr("x", (this.width / 2))
-            .attr("y", this.margin)
-            .attr("text-anchor", "middle")
-            .style("font-size", "16px")
-            .text(name + ": Daily High");
+        if (this.show_mode !== 'MACD'){
+            this.svg.append("path")
+                .data([stock_data])
+                .attr("class", "line")
+                .attr("d",valueline)
+                .attr("stroke", "darkseagreen");
+            this.svg.append("text")
+                .attr("x", (this.width / 2))
+                .attr("y", this.margin)
+                .attr("text-anchor", "middle")
+                .style("font-size", "16px")
+                .text(name + ": " + this.show_mode);
 
+        }else{
+
+            this.svg.append("path")
+                .data([stock_data])
+                .attr("class", "line")
+                .attr("d",valueline)
+                .attr("stroke", "darkseagreen");
+
+
+            let stock_data_object2 = thisvis.data.ma30
+
+
+            let stock_dates2 = []
+            let stock_values2 = []
+            for (const [timestamp,val] of Object.entries(stock_data_object2)) {
+                if (val != null) {
+                    let date = new Date(+timestamp);
+                    stock_dates2.push(date);
+                    stock_values2.push(val);
+                }}
+            let stock_data2 = d3.zip(stock_dates2,stock_values2)
+
+
+            const valueline2 = d3
+                .line()
+                .x(function(d) {return xx(d[0]); })
+                .y(function(d) { return yy(d[1]); })
+                .curve(d3.curveCardinal);
+
+            this.svg.append("path")
+                .data([stock_data2])
+                .attr("class", "line")
+                .attr("d",valueline2)
+                .attr("stroke", "purple");
+
+            this.svg.append("text")
+                .attr("x", (this.width / 2))
+                .attr("y", this.margin)
+                .attr("text-anchor", "middle")
+                .style("font-size", "16px")
+                .text(name + ": " + 'MACD');
+
+
+        }
     }
 }

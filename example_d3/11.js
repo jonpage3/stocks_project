@@ -60,8 +60,6 @@ class StockVis  {
         let thisvis = this
         let name = this.data.name
 
-
-
         console.log(this.show_mode)
 
         let stock_data_object = thisvis.data[this.show_mode]
@@ -100,7 +98,6 @@ class StockVis  {
                 .attr("transform", "translate(0,"+(500-this.margin)+")")
                 .call(d3.axisBottom(this.svg.x));
 
-
         this.svg.append("g")
             .attr("class", "axis")
             .attr("transform", "translate("+this.margin+",0)")
@@ -111,8 +108,6 @@ class StockVis  {
             .x(function(d) {return xx(d[0]); })
             .y(function(d) { return yy(d[1]); })
             .curve(d3.curveCardinal);
-
-
 
 
         if (this.show_mode !== 'MACD'){
@@ -172,11 +167,6 @@ class StockVis  {
 
 
         }
-
-
-
-
-
 
 }
 }

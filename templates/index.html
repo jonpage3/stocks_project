@@ -32,7 +32,7 @@
 <style>
     path.line {
         fill: none;
-        stroke: darkseagreen;
+        /*stroke: darkseagreen;*/
         stroke-width: 1px;
     }
     #stock_vis {
@@ -80,6 +80,18 @@
 
 </form>
 
+<!--select for the show mode of different analysis-->
+Show
+<select id="show_select" onchange="vis.setShowMode(this.value);">
+    <option value="Open">Open</option>
+    <option value="High">High</option>
+    <option value="Close">Close</option>
+    <option value="Volume">Volume</option>
+    <option value="MACD">MACD</option>
+    <option value="CCI">CCI</option>
+    <option value="RSI">RSI</option>
+</select>
+
 <form id="stock-select">
   <div class="select is-multiple">
     <select id="stock-list" name="name" multiple="multiple" size="20" style="width:200px;">
@@ -88,6 +100,8 @@
 </form>
 <span id="result" ></span>
 <div id="stock_vis" class="stockvis"></div>
+
+
 
 <script>
     function stockSubmit(ev) {
@@ -110,6 +124,10 @@
     }
 
     var form = document.getElementById('stock-select');
+
+    //we need something here to to create a change when we submit update
+    //show select. it needs to capture all values of all items that have been selected
+    //or all values in listbox. and then it needs to create a new StockVis with the show mode selected
 
     form.addEventListener('change', stockSubmit);
     //console.log(form)

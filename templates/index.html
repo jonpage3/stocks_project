@@ -41,11 +41,9 @@
 </style>
 
 
-<body style="text-align: left;">
-
-
+<body style="text-align: left;" class="has-background-grey">
+	
 <h1 class="title">Stocks - Add stock into StockViewer.</h1>
-
 
 <form id="stock-search" class="stock-search">
 <p><div class="field">
@@ -59,15 +57,6 @@
       <input class="button is-link" type="button"  onclick="insertStockIntoViewer()" value="Insert into Stock Viewer"></p>
     </div>
   </div>
-  <div class="tabs">
-    <ul>
-      <li class="is-active"><a>$MSFT</a></li>
-      <li><a>$META</a></li>
-      <li><a>$TSLA</a></li>
-      <li><a>$AAPL</a></li>
-    </ul>
-  </div>
-
 	<!--<label for ="first_money">Money to invest:</label><br>
 		<input type ="text" id="first_money" name="first_money"><br>-->
 	<!--<input class="new-search" type="submit" value="Submit">-->
@@ -110,7 +99,7 @@
     }
 
     function stockShow() {
-      console.log(this.responseText);
+      //console.log(this.responseText);
       //data in json 
       let data = JSON.parse(this.responseText);
       console.log(data);

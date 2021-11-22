@@ -5,10 +5,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!--plotly to help with cher's viz -->
 <script src='https://cdn.plot.ly/plotly-2.6.3.min.js'></script>
+<!--added for extra help -->
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 
 <!-- Load icon library not sure if this works-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+
 
 <script src="{{ url_for('static', filename='stock_vis.js') }}"></script>
 <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
@@ -95,7 +101,9 @@ Show
         <select id="stock-list" name="name" multiple="multiple" size="20" style="width:200px;">
         </select>
     </div>
-    <div id="stock_vis" class="stockvis"></div>
+
+        <div id="stock_vis" ></div>
+
 
 </form>
 <span id="result" ></span>

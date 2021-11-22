@@ -107,7 +107,7 @@ class StockVis {
             .curve(d3.curveCardinal);
 
 
-        if (this.show_mode !== 'MACD'){
+        if (this.show_mode !== 'ma5'){
             this.svg.append("path")
                 .data([stock_data])
                 .attr("class", "line")

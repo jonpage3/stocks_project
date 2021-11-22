@@ -87,7 +87,7 @@ Show
     <option value="High">High</option>
     <option value="Close">Close</option>
     <option value="Volume">Volume</option>
-    <option value="MACD">MACD</option>
+    <option value="ma5">MACD</option>
     <option value="CCI">CCI</option>
     <option value="RSI">RSI</option>
 </select>
@@ -130,8 +130,8 @@ Show
 
     function renderShow(mode) {
         console.log("this mode has been selected: " + mode);
-        let form = document.getElementById('stock-select');
-        form.addEventListener('change', stockSubmit);
+        var elem = document.getElementById('stock-select');
+
     }
 
 

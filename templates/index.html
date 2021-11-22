@@ -82,7 +82,7 @@
 
 <!--select for the show mode of different analysis-->
 Show
-<select id="show_select" onchange="renderShow(this.value)">
+<select id="show_select" onchange="renderShow()">
     <option value="Open">Open</option>
     <option value="High">High</option>
     <option value="Close">Close</option>
@@ -105,7 +105,7 @@ Show
 
 <script>
     function stockSubmit(ev) {
-      
+
       ev.preventDefault();
       var request = new XMLHttpRequest();
       request.addEventListener('load', stockShow);
@@ -122,27 +122,32 @@ Show
 
       //console.log("this is the show mode: " + show_mode)
       let data = JSON.parse(this.responseText);
-      console.log(data);
 
-      //idea for how to code stock visualization
+      //var select = document.getElementById('stock-list');
+      //var value = select.options[select.selectedIndex].value;
+
+      //console.log("here's the ticker" + value);
+
+      //produce new stock viz
       var vis = new StockVis("stock_vis",data,show_mode);
       vis.render();
     }
 
-    function renderShow(mode) {
-        console.log("this mode has been selected: " + mode);
-        var elem = document.getElementById('stock-select');
+    function renderShow() {
+        var select = document.getElementById('stock-list');
+        var value = select.options[select.selectedIndex].value;
+        console.log("here's the ticker" + value);
+        //select.addEventListener('change',stockSubmit);
 
     }
 
 
     var form = document.getElementById('stock-select');
-
-    //we need something here to to create a change when we submit update
-    //show select. it needs to capture all values of all items that have been selected
-    //or all values in listbox. and then it needs to create a new StockVis with the show mode selected
-
     form.addEventListener('change', stockSubmit);
+
+
+
+
 
 
 </script>

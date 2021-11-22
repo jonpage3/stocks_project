@@ -1,11 +1,11 @@
 class StockVis {
 
-    constructor(container_id,vis_data){
+    constructor(container_id,vis_data,show_mode){
         this.container_id = container_id;
         this.data = vis_data;
 
         //set default show mode
-        this.show_mode = "Open";
+        this.show_mode = show_mode;
 
         this.height = 500;
         this.width = 500;
@@ -51,7 +51,8 @@ class StockVis {
 
     render () {
 
-        d3.selectAll("svg > *").remove();
+        //this is removing all svg--we need an improvement
+        //d3.selectAll("svg > *").remove();
 
         let thisvis = this
         let name = this.data.name

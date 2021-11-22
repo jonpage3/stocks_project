@@ -82,7 +82,7 @@
 
 <!--select for the show mode of different analysis-->
 Show
-<select id="show_select" onchange="vis.setShowMode(this.value);">
+<select id="show_select" onchange="renderShow(this.value)">
     <option value="Open">Open</option>
     <option value="High">High</option>
     <option value="Close">Close</option>
@@ -105,6 +105,7 @@ Show
 
 <script>
     function stockSubmit(ev) {
+      console.log(this)
       ev.preventDefault();
       var request = new XMLHttpRequest();
       request.addEventListener('load', stockShow);
@@ -113,15 +114,26 @@ Show
     }
 
     function stockShow() {
+
       //console.log(this.responseText);
-      //data in json 
+      //data in json
+      var show_mode = document.getElementById('show_select').value
+
+      //console.log("this is the show mode: " + show_mode)
       let data = JSON.parse(this.responseText);
       console.log(data);
 
       //idea for how to code stock visualization
-      var vis = new StockVis("stock_vis",data);
+      var vis = new StockVis("stock_vis",data,show_mode);
       vis.render();
     }
+
+    function renderShow(mode) {
+        console.log("this mode has been selected: " + mode);
+        let form = document.getElementById('stock-select');
+        form.addEventListener('change', stockSubmit);
+    }
+
 
     var form = document.getElementById('stock-select');
 
@@ -130,7 +142,8 @@ Show
     //or all values in listbox. and then it needs to create a new StockVis with the show mode selected
 
     form.addEventListener('change', stockSubmit);
-    //console.log(form)
+
+
 </script>
 </body>
 </html>

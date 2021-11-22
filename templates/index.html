@@ -3,12 +3,14 @@
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <!--jquery to help with listbox -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!--plotly to help with cher's viz -->
-<script src='https://cdn.plot.ly/plotly-2.6.3.min.js'></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 
 <!-- Load icon library not sure if this works-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
 
 <script src="{{ url_for('static', filename='stock_vis.js') }}"></script>
 <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
@@ -43,7 +45,7 @@
 </style>
 
 
-<body style="text-align: left;" class="has-background-grey-lighter">
+<body style="text-align: left;" class="has-background-grey">
 	
 <h1 class="title">Stocks - Add stock into StockViewer.</h1>
 
@@ -59,6 +61,12 @@
       <input class="button is-link" type="button"  onclick="insertStockIntoViewer()" value="Insert into Stock Viewer"></p>
     </div>
   </div>
+	<!--<label for ="first_money">Money to invest:</label><br>
+		<input type ="text" id="first_money" name="first_money"><br>-->
+	<!--<input class="new-search" type="submit" value="Submit">-->
+  <!--<select id="stock-list" multiple="multiple" size="20" style="width:200px;">
+      <option></option>
+  </select>-->
 
   <!--reference for limiting selected options:https://stackoverflow.com/questions/30474614/multiple-select-limit-number-of-selection/30475067.-->
       <script type="text/javascript">
@@ -86,8 +94,6 @@ Show
     <option value="ma5">MACD</option>
     <option value="CCI">CCI</option>
     <option value="RSI">RSI</option>
-    <option value="ohlc">OHLC</option>
-    
 </select>
 
 <form id="stock-select">
@@ -95,11 +101,12 @@ Show
     <select id="stock-list" name="name" multiple="multiple" size="20" style="width:200px;">
     </select>
   </div>
-    <div id="stock_vis" class="stockvis"></div>
-
 </form>
 <span id="result" ></span>
-<!--<div id="stock_vis" class="stockvis"></div>-->
+<div class="columns">
+  <div id="stock_vis" class="column"></div>
+</div>
+
 
 
 
@@ -113,8 +120,6 @@ Show
       //console.log(new FormData(this))
       request.send(new FormData(this));
     }
-    //create a total stock data object to store data
-    var total_stock_data = {}
 
     function stockShow() {
 
@@ -125,56 +130,41 @@ Show
       //console.log("this is the show mode: " + show_mode)
       let data = JSON.parse(this.responseText);
 
-      //add data to total stock object
-      total_stock_data[data.name] = data
+      //var select = document.getElementById('stock-list');
+      //var value = select.options[select.selectedIndex].value;
 
+      //console.log("here's the ticker" + value);
 
       //produce new stock viz
-        if (show_mode == 'ohlc') {
-            //let vis = new StockVis("stock_vis",total_stock_data[stocks[i]],show_mode);
-            //vis.renderOHLC();
-
-            let vis = new StockVis("stock_vis",data,'High');
-            vis.renderOHLC();
-
-        } else {
-            let vis = new StockVis("stock_vis", data, show_mode);
-            vis.render();
-        }
+      var vis = new StockVis("stock_vis",data,show_mode);
+      vis.render();
     }
 
     function renderShow() {
-
-        //selects all stocks that are selected
-        let stocks = $('#stock-list').val()
-
-        //get the show mode
-        let show_mode = document.getElementById('show_select').value;
-
-        //loop through each stock to get viz for each stock in array
-        for (let i= 0; i < stocks.length;i++){
-            //console.log(stocks[i])
-            //console.log(total_stock_data[stocks[i]])
-            if (show_mode == 'ohlc') {
-
-                let vis = new StockVis("stock_vis",total_stock_data[stocks[i]],'High');
-                vis.renderOHLC();
-
-            } else {
-                let vis = new StockVis("stock_vis", total_stock_data[stocks[i]], show_mode);
-                vis.render();
-            }
-        }
-
+        var select = document.getElementById('stock-list');
+        var value = select.options[select.selectedIndex].value;
+        console.log("here's the ticker" + value);
+        //select.addEventListener('change',stockSubmit);
 
     }
 
 
     var form = document.getElementById('stock-select');
     form.addEventListener('change', stockSubmit);
-
-
-
+    $(function(){
+    let tickers = [];
+    fetch('http://api.marketstack.com/v1/tickers?access_key=3ca833254ab54164ed6a0ff4c140ff9a&limit=1000')
+    .then((result)=>{
+      return result.json();
+    }).then((data)=>{
+      for(let i = 0; i < data.data.length; i++){
+        tickers.push(data.data[i].symbol);
+      }
+    })
+    $("#name").autocomplete({
+      source: tickers
+    });
+  });
 </script>
 </body>
 </html>

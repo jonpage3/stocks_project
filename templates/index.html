@@ -3,6 +3,8 @@
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <!--jquery to help with listbox -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!--plotly to help with cher's viz -->
+<script src='https://cdn.plot.ly/plotly-2.6.3.min.js'></script>
 
 <!-- Load icon library not sure if this works-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -84,6 +86,8 @@ Show
     <option value="ma5">MACD</option>
     <option value="CCI">CCI</option>
     <option value="RSI">RSI</option>
+    <option value="ohlc">OHLC</option>
+    
 </select>
 
 <form id="stock-select">
@@ -125,8 +129,17 @@ Show
 
 
       //produce new stock viz
-      var vis = new StockVis("stock_vis",data,show_mode);
-      vis.render();
+        if (show_mode == 'ohlc') {
+            //let vis = new StockVis("stock_vis",total_stock_data[stocks[i]],show_mode);
+            //vis.renderOHLC();
+
+            let vis = new StockVis("stock_vis",data,'High');
+            vis.renderOHLC();
+
+        } else {
+            let vis = new StockVis("stock_vis", data, show_mode);
+            vis.render();
+        }
     }
 
     function renderShow() {
@@ -139,10 +152,19 @@ Show
 
         //loop through each stock to get viz for each stock in array
         for (let i= 0; i < stocks.length;i++){
-            console.log(stocks[i])
-            console.log(total_stock_data[stocks[i]])
-            let vis = new StockVis("stock_vis",total_stock_data[stocks[i]],show_mode);
-            vis.render();
+            //console.log(stocks[i])
+            //console.log(total_stock_data[stocks[i]])
+            if (show_mode == 'ohlc') {
+                //let vis = new StockVis("stock_vis",total_stock_data[stocks[i]],show_mode);
+                //vis.renderOHLC();
+
+                let vis = new StockVis("stock_vis",total_stock_data[stocks[i]],'High');
+                vis.renderOHLC();
+
+            } else {
+                let vis = new StockVis("stock_vis", total_stock_data[stocks[i]], show_mode);
+                vis.render();
+            }
         }
 
 

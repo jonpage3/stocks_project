@@ -10,8 +10,7 @@ class StockVis {
         this.height = 500;
         this.width = 500;
         this.margin = 40;
-
-
+        //unsure of this block of code
         this.stock_data_object = this.data[this.show_mode]
 
         this.stock_dates = []
@@ -27,6 +26,7 @@ class StockVis {
 
         this.dataXrange = d3.extent(this.stock_dates,function(d) {return d;})
         this.dataYrange = d3.extent(this.stock_values,function(d) {return d;})
+
         /*
         this.svg = d3.select("#"+ container_id)
             .append("svg")
@@ -56,6 +56,7 @@ class StockVis {
         //this is removing all svg--we need an improvement
         //d3.selectAll("svg > *").remove();
         d3.selectAll(".stock_chart-" +this.data.name).remove()
+        d3.selectAll(".plot-container plotly").remove()
         /*let chart = this.svg.append("g")
             .attr("class","stock_chart-" +this.data.name)
         */
@@ -184,4 +185,68 @@ class StockVis {
 
         }
     }
+
+    renderOHLC () {
+        d3.selectAll(".stock_chart-" +this.data.name).remove()
+        let data = this.data
+        //my code starts here
+        //clean the data first
+        let dh_data_object = data.High
+        //console.log(dh_data_object)
+        let dates = []
+        let dh_values = []
+        for (const [timestamp,dh] of Object.entries(dh_data_object)) {
+            if (dh != null) {
+                let date = new Date(+timestamp);
+                dates.push(date);
+                dh_values.push(dh);
+            }}
+        //console.log(dh_dates)
+        //console.log(dh_values)
+        let close_object = data.Close
+        let close_values = []
+        for (const [timestamp,val] of Object.entries(close_object)) {
+            close_values.push(val)}
+        //console.log(open_values)
+        let open_object = data.Open
+        let open_values = []
+        for (const [timestamp,val] of Object.entries(open_object)) {
+            open_values.push(val)}
+
+        let low_object = data.Low
+        let low_values = []
+        for (const [timestamp,val] of Object.entries(low_object)) {
+            low_values.push(val)}
+
+        let trace = {
+            x: dates,
+            close: close_values,
+            high: dh_values,
+            low: low_values,
+            open: open_values,
+
+            // line colors
+            increasing: {line: {color: 'green'}},
+            decreasing: {line: {color: 'red'}},
+
+            type: 'ohlc',
+            xaxis: 'x',
+            yaxis: 'y'
+        };
+
+        let data_test = [trace];
+
+        let layout = {
+            dragmode: 'zoom',
+            showlegend: false,
+            xaxis: {
+                rangeslider: {
+                    visible: true
+                }
+            }
+        };
+
+        Plotly.newPlot('stock_vis', data_test, layout);
+    }
+
 }

@@ -36,7 +36,7 @@
         stroke-width: 1px;
     }
     #stock_vis {
-        float: right;
+        /*float: right;*/
     }
 </style>
 
@@ -57,12 +57,6 @@
       <input class="button is-link" type="button"  onclick="insertStockIntoViewer()" value="Insert into Stock Viewer"></p>
     </div>
   </div>
-	<!--<label for ="first_money">Money to invest:</label><br>
-		<input type ="text" id="first_money" name="first_money"><br>-->
-	<!--<input class="new-search" type="submit" value="Submit">-->
-  <!--<select id="stock-list" multiple="multiple" size="20" style="width:200px;">
-      <option></option>
-  </select>-->
 
   <!--reference for limiting selected options:https://stackoverflow.com/questions/30474614/multiple-select-limit-number-of-selection/30475067.-->
       <script type="text/javascript">
@@ -113,6 +107,7 @@ Show
       //console.log(new FormData(this))
       request.send(new FormData(this));
     }
+    //create a total stock data object to store data
     var total_stock_data = {}
 
     function stockShow() {
@@ -124,17 +119,9 @@ Show
       //console.log("this is the show mode: " + show_mode)
       let data = JSON.parse(this.responseText);
 
-      //create a total stock data array to store data
-      //let data_object = {}
+      //add data to total stock object
       total_stock_data[data.name] = data
-      //total_stock_data.push(data_object)
-      //console.log("this is total stock data")
-      //console.log(total_stock_data)
 
-
-      //var select = document.getElementById('stock-list');
-      //var value = select.options[select.selectedIndex].value;
-      //console.log("here's the ticker" + value);
 
       //produce new stock viz
       var vis = new StockVis("stock_vis",data,show_mode);
@@ -143,19 +130,13 @@ Show
 
     function renderShow() {
 
-        /*We need to do something like
-            for item in listbox:
-                var show_mode = document.getElementById('show_select').value;
-                var vis = new StockVis("stock_vis",total_stock_data[item],show_mode);
-                vis.render(); */
         //selects all stocks that are selected
         let stocks = $('#stock-list').val()
 
-        console.log("this are the stocks in the listbox")
-        console.log(stocks)
-        //console.log(total_stock_data)
+        //get the show mode
         let show_mode = document.getElementById('show_select').value;
 
+        //loop through each stock to get viz for each stock in array
         for (let i= 0; i < stocks.length;i++){
             console.log(stocks[i])
             console.log(total_stock_data[stocks[i]])
@@ -164,20 +145,11 @@ Show
         }
 
 
-
-        //var select = document.getElementById('stock-list');
-        //var value = select.options[select.selectedIndex].value;
-        //console.log("here's the ticker" + value);
-        //select.addEventListener('change',stockSubmit);
-
     }
 
 
     var form = document.getElementById('stock-select');
     form.addEventListener('change', stockSubmit);
-
-
-
 
 
 

@@ -57,7 +57,7 @@ class StockVis {
         let thisvis = this
         let name = this.data.name
 
-        console.log(this.show_mode)
+        //console.log(this.show_mode)
 
         let stock_data_object = thisvis.data[this.show_mode]
 

@@ -113,7 +113,7 @@ Show
       //console.log(new FormData(this))
       request.send(new FormData(this));
     }
-    let total_stock_data = []
+    var total_stock_data = {}
 
     function stockShow() {
 
@@ -125,9 +125,9 @@ Show
       let data = JSON.parse(this.responseText);
 
       //create a total stock data array to store data
-      let data_object = {}
-      data_object[data.name] = data
-      total_stock_data.push(data_object)
+      //let data_object = {}
+      total_stock_data[data.name] = data
+      //total_stock_data.push(data_object)
       //console.log("this is total stock data")
       //console.log(total_stock_data)
 
@@ -147,9 +147,24 @@ Show
             for item in listbox:
                 var show_mode = document.getElementById('show_select').value;
                 var vis = new StockVis("stock_vis",total_stock_data[item],show_mode);
-                vis.render();
+                vis.render(); */
+        //selects all stocks that are selected
+        let stocks = $('#stock-list').val()
 
-        */
+        console.log("this are the stocks in the listbox")
+        console.log(stocks)
+        //console.log(total_stock_data)
+        let show_mode = document.getElementById('show_select').value;
+
+        for (let i= 0; i < stocks.length;i++){
+            console.log(stocks[i])
+            console.log(total_stock_data[stocks[i]])
+            let vis = new StockVis("stock_vis",total_stock_data[stocks[i]],show_mode);
+            vis.render();
+        }
+
+
+
         //var select = document.getElementById('stock-list');
         //var value = select.options[select.selectedIndex].value;
         //console.log("here's the ticker" + value);

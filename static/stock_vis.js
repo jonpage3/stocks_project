@@ -52,7 +52,7 @@ class StockVis {
     }
 
     render () {
-        
+
         //this is removing all svg--we need an improvement
         //d3.selectAll("svg > *").remove();
         d3.selectAll(".stock_chart-" +this.data.name).remove()

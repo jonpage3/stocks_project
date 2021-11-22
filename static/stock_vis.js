@@ -56,7 +56,7 @@ class StockVis {
         //this is removing all svg--we need an improvement
         //d3.selectAll("svg > *").remove();
         d3.selectAll(".stock_chart-" +this.data.name).remove()
-        d3.selectAll(".plot-container plotly").remove()
+        d3.selectAll(".plot-container").remove()
         /*let chart = this.svg.append("g")
             .attr("class","stock_chart-" +this.data.name)
         */

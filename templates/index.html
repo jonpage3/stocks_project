@@ -96,6 +96,7 @@ Show
     </select>
   </div>
     <div id="stock_vis" class="stockvis"></div>
+
 </form>
 <span id="result" ></span>
 <!--<div id="stock_vis" class="stockvis"></div>-->
@@ -155,8 +156,6 @@ Show
             //console.log(stocks[i])
             //console.log(total_stock_data[stocks[i]])
             if (show_mode == 'ohlc') {
-                //let vis = new StockVis("stock_vis",total_stock_data[stocks[i]],show_mode);
-                //vis.renderOHLC();
 
                 let vis = new StockVis("stock_vis",total_stock_data[stocks[i]],'High');
                 vis.renderOHLC();

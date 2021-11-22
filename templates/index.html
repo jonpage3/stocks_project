@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 <head>
     <meta charset="UTF-8">
-    <title>Stocks - Add stock item into stock viewer.</title>
+    <title>StockViewer.</title>
     <!--reference for adding items to listbox:https://www.includehelp.com/code-snippets/javascript-add-user-entered-item-into-listbox.aspx-->
     <script type="text/javascript">
         function insertStockIntoViewer() {
@@ -46,12 +46,18 @@
     #stock_vis {
         float: right;
     }
+    .title {
+        color: #E2725B;
+        font-family: 'Helvetica', 'Arial', sans-serif;
+        font-weight: bold;
+
+    }
 </style>
 
 
 <body style="text-align: left;" class="has-background-grey-lighter">
 
-<h1 class="title">Stocks - Add stock into StockViewer.</h1>
+<h1 class="title">   S T O C K V I E W E R</h1>
 
 <form id="stock-search" class="stock-search">
     <p><div class="field">
@@ -60,6 +66,8 @@
         <input class="input" type="text" placeholder="$TICK" id="name"/>
     </div>
 </div>
+    <br>
+    <br>
     <div class="field">
         <div class="control">
             <input class="button is-link" type="button"  onclick="insertStockIntoViewer()" value="Insert into Stock Viewer"></p>

@@ -105,11 +105,12 @@ Show
 
 <script>
     function stockSubmit(ev) {
-      console.log(this)
+      
       ev.preventDefault();
       var request = new XMLHttpRequest();
       request.addEventListener('load', stockShow);
       request.open('POST', "{{ url_for('return_stock_info')}}");
+      //console.log(new FormData(this))
       request.send(new FormData(this));
     }
 

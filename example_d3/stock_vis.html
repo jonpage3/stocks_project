@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <script src="https://d3js.org/d3.v7.min.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <script src="ex_stock_vis.js"></script>
 
 </head>
@@ -14,24 +15,35 @@
         stroke-width: 1px;
     }
 </style>
-Show:
-<select id="show_select" onchange="vis.setShowMode(this.value);">
-    <option value="Open">Open</option>
-    <option value="High">High</option>
-    <option value="Close">Close</option>
-    <option value="Volume">Volume</option>
-    <option value="MACD">MACD</option>
-    <option value="CCI">CCI</option>
-    <option value="RSI">RSI</option>
-</select>
-<!-- This is where we'll draw the visualization! -->
-<div id="stock_vis" ></div>
+<div class="card">
+    <header class="card-header">
+        <p id="title" class="card-header-title"></p>
+    </header>
+    <div class="card-content">
+        <div class="content">
+            Show:
+            <select id="show_select" onchange="vis.setShowMode(this.value);">
+                <option value="Open">Open</option>
+                <option value="High">High</option>
+                <option value="Close">Close</option>
+                <option value="Volume">Volume</option>
+                <option value="MACD">MACD</option>
+                <option value="CCI">CCI</option>
+                <option value="RSI">RSI</option>
+            </select>
+            <!-- This is where we'll draw the visualization! -->
+            <div id="stock_vis" ></div>
 
-<div id="details"></div>
+            <div id="details"></div>
+        </div>
+    </div>
+</div>
 <script>
 
     vis = new StockVis("stock_vis", data);
     vis.render();
+    vis.updateTitle();
+
 </script>
 
 

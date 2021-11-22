@@ -123,7 +123,7 @@ class StockVis  {
                 .attr("y", this.margin)
                 .attr("text-anchor", "middle")
                 .style("font-size", "16px")
-                .text(name + ": " + this.show_mode);
+                .text(this.show_mode);
 
         }else{
 
@@ -165,10 +165,16 @@ class StockVis  {
                 .attr("y", this.margin)
                 .attr("text-anchor", "middle")
                 .style("font-size", "16px")
-                .text(name + ": " + 'MACD');
+                .text('MACD');
 
 
         }
+    }
+
+    updateTitle(){
+        let title = data.name.toUpperCase();
+        document.getElementById("title").innerHTML = '$' + title;
+        console.log(title);
     }
 }
 

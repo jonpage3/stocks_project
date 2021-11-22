@@ -113,6 +113,7 @@ Show
       //console.log(new FormData(this))
       request.send(new FormData(this));
     }
+    let total_stock_data = []
 
     function stockShow() {
 
@@ -123,9 +124,16 @@ Show
       //console.log("this is the show mode: " + show_mode)
       let data = JSON.parse(this.responseText);
 
+      //create a total stock data array to store data
+      let data_object = {}
+      data_object[data.name] = data
+      total_stock_data.push(data_object)
+      //console.log("this is total stock data")
+      //console.log(total_stock_data)
+
+
       //var select = document.getElementById('stock-list');
       //var value = select.options[select.selectedIndex].value;
-
       //console.log("here's the ticker" + value);
 
       //produce new stock viz
@@ -134,9 +142,17 @@ Show
     }
 
     function renderShow() {
-        var select = document.getElementById('stock-list');
-        var value = select.options[select.selectedIndex].value;
-        console.log("here's the ticker" + value);
+
+        /*We need to do something like
+            for item in listbox:
+                var show_mode = document.getElementById('show_select').value;
+                var vis = new StockVis("stock_vis",total_stock_data[item],show_mode);
+                vis.render();
+
+        */
+        //var select = document.getElementById('stock-list');
+        //var value = select.options[select.selectedIndex].value;
+        //console.log("here's the ticker" + value);
         //select.addEventListener('change',stockSubmit);
 
     }

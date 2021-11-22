@@ -27,8 +27,39 @@ class StockVis {
 
         this.dataXrange = d3.extent(this.stock_dates,function(d) {return d;})
         this.dataYrange = d3.extent(this.stock_values,function(d) {return d;})
-
+        /*
         this.svg = d3.select("#"+ container_id)
+            .append("svg")
+            //.attr("class","stock_chart-" + this.data.name)
+            .attr("width", this.width)
+            .attr("height", this.height);
+
+        this.svg.x = d3.scaleTime()
+            .domain(this.dataXrange)
+            .range([this.margin,this.width-this.margin]);
+
+        this.svg.y = d3.scaleLinear()
+            .domain(this.dataYrange.reverse())
+            .range([this.margin,this.height-this.margin]);
+        */
+    }
+
+    setShowMode(new_mode) {
+        this.show_mode = new_mode;
+        //let chart = d3.selectAll("svg").attr("class","stock_chart-" +this.data.name)
+        //chart.remove()
+        this.render();
+    }
+
+    render () {
+        //this.svg.exit().remove()
+        //this is removing all svg--we need an improvement
+        //d3.selectAll("svg > *").remove();
+        d3.selectAll(".stock_chart-" +this.data.name).remove()
+        /*let chart = this.svg.append("g")
+            .attr("class","stock_chart-" +this.data.name)
+        */
+        this.svg = d3.select("#"+ this.container_id)
             .append("svg")
             .attr("class","stock_chart-" + this.data.name)
             .attr("width", this.width)
@@ -42,25 +73,10 @@ class StockVis {
             .domain(this.dataYrange.reverse())
             .range([this.margin,this.height-this.margin]);
 
-    }
-
-    setShowMode(new_mode) {
-        this.show_mode = new_mode;
-        //let chart = d3.selectAll("svg").attr("class","stock_chart-" +this.data.name)
-        //chart.remove()
-        this.render();
-    }
-
-    render () {
-
-        //this is removing all svg--we need an improvement
-        //d3.selectAll("svg > *").remove();
-        //d3.selectAll("svg").attr("class","stock_chart-" +this.data.name).remove()
-
         let thisvis = this
         let name = this.data.name
 
-        //console.log(this.show_mode)
+
 
         let stock_data_object = thisvis.data[this.show_mode]
 

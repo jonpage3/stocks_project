@@ -32,7 +32,7 @@ class StockVis  {
 
         this.svg = d3.select("#"+ container_id)
             .append("svg")
-            .attr("class","stock_chart")
+            //.attr("class","stock_chart-" + this.data.name)
             .attr("width", this.width)
             .attr("height", this.height);
 
@@ -53,7 +53,13 @@ class StockVis  {
 
     render () {
 
-        d3.selectAll("svg > *").remove();
+        //d3.selectAll("svg > *").remove();
+        d3.selectAll(".stock_chart-" +this.data.name).remove()
+        let chart = this.svg.append("svg")
+            .attr("class","stock_chart-" +this.data.name)
+
+
+
 
         let thisvis = this
         let name = this.data.name
@@ -91,12 +97,12 @@ class StockVis  {
 
 
 
-        this.svg.append("g")
+        chart.append("g")
             .attr("class", "axis")
             .attr("transform", "translate(0,"+(500-this.margin)+")")
             .call(d3.axisBottom(this.svg.x));
 
-        this.svg.append("g")
+        chart.append("g")
             .attr("class", "axis")
             .attr("transform", "translate("+this.margin+",0)")
             .call(d3.axisLeft(yy))
@@ -109,12 +115,12 @@ class StockVis  {
 
 
         if (this.show_mode !== 'MACD'){
-            this.svg.append("path")
+            chart.append("path")
                 .data([stock_data])
                 .attr("class", "line")
                 .attr("d",valueline)
                 .attr("stroke", "darkseagreen");
-            this.svg.append("text")
+            chart.append("text")
                 .attr("x", (this.width / 2))
                 .attr("y", this.margin)
                 .attr("text-anchor", "middle")
@@ -123,7 +129,7 @@ class StockVis  {
 
         }else{
 
-            this.svg.append("path")
+            chart.append("path")
                 .data([stock_data])
                 .attr("class", "line")
                 .attr("d",valueline)
@@ -150,13 +156,13 @@ class StockVis  {
                 .y(function(d) { return yy(d[1]); })
                 .curve(d3.curveCardinal);
 
-            this.svg.append("path")
+            chart.append("path")
                 .data([stock_data2])
                 .attr("class", "line")
                 .attr("d",valueline2)
                 .attr("stroke", "purple");
 
-            this.svg.append("text")
+            chart.append("text")
                 .attr("x", (this.width / 2))
                 .attr("y", this.margin)
                 .attr("text-anchor", "middle")

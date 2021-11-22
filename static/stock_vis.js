@@ -30,7 +30,7 @@ class StockVis {
 
         this.svg = d3.select("#"+ container_id)
             .append("svg")
-            .attr("class","stock_chart")
+            .attr("class","stock_chart-" + this.data.name)
             .attr("width", this.width)
             .attr("height", this.height);
 
@@ -46,6 +46,8 @@ class StockVis {
 
     setShowMode(new_mode) {
         this.show_mode = new_mode;
+        //let chart = d3.selectAll("svg").attr("class","stock_chart-" +this.data.name)
+        //chart.remove()
         this.render();
     }
 
@@ -53,6 +55,7 @@ class StockVis {
 
         //this is removing all svg--we need an improvement
         //d3.selectAll("svg > *").remove();
+        //d3.selectAll("svg").attr("class","stock_chart-" +this.data.name).remove()
 
         let thisvis = this
         let name = this.data.name

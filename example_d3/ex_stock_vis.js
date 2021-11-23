@@ -81,6 +81,7 @@ class StockVis  {
                 stock_values.push(val);
             }}
         let stock_data = d3.zip(stock_dates,stock_values)
+        console.log(stock_data)
 
 
 
@@ -125,6 +126,61 @@ class StockVis  {
                 .style("font-size", "16px")
                 .text(this.show_mode);
 
+            //this is for line cursor
+            //does not work
+            /*
+            var bisect = d3.bisector(function(d) { return d.x; }).left;
+
+            var focus = chart
+                .append('g')
+                .append('circle')
+                .style("fill", "none")
+                .attr("stroke", "black")
+                .attr('r', 8.5)
+                .style("opacity", 0)
+
+            var focusText = chart
+                .append('g')
+                .append('text')
+                .style("opacity", 0)
+                .attr("text-anchor", "left")
+                .attr("alignment-baseline", "middle")
+
+            chart.append('rect')
+                .style("fill", "none")
+                .style("pointer-events", "all")
+                .attr('width', this.width)
+                .attr('height', this.height)
+                .on('mouseover', mouseover)
+                .on('mousemove', mousemove)
+                .on('mouseout', mouseout);
+
+            function mouseover() {
+                focus.style("opacity", 1)
+                focusText.style("opacity",1)
+            }
+
+            function mousemove() {
+                // recover coordinate we need
+                var x0 = xx.invert(d3.pointer(this));
+                console.log(x0)
+                var i = bisect(stock_data, x0, 1);
+                console.log(i)
+                let selectedData = stock_data[i]
+                //console.log(stock_data)
+                focus
+                    .attr("cx", xx(d[0]))
+                    .attr("cy", yy(d[1]))
+                focusText
+                    .html("x:" + selectedData.x + "  -  " + "y:" + selectedData.y)
+                    .attr("x", xx(selectedData.x)+15)
+                    .attr("y", yy(selectedData.y))
+            }
+            function mouseout() {
+                focus.style("opacity", 0)
+                focusText.style("opacity", 0)
+            }
+            */
         }else{
 
             chart.append("path")

@@ -9,7 +9,7 @@ class StockVis {
 
         this.height = 500;
         this.width = 500;
-        this.margin = 40;
+        this.margin = 100;
         //unsure of this block of code
         this.stock_data_object = this.data[this.show_mode]
 

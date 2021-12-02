@@ -3,7 +3,7 @@
 <head>
     <script src="https://d3js.org/d3.v7.min.js" charset="utf-8"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-    <script src="ex_stock_vis.js"></script>
+    <script src="stock_vis_redone.js"></script>
 
 </head>
 <body>
@@ -39,8 +39,8 @@
     </div>
 </div>
 <script>
-
-    vis = new StockVis("stock_vis", data);
+    var show_mode = document.getElementById('show_select').value
+    vis = new StockVis("stock_vis", data,show_mode);
     vis.render();
     vis.updateTitle();
 

@@ -3,7 +3,7 @@ class StockVis {
     constructor(container_id,vis_data,show_mode){
         this.container_id = container_id;
         this.data = vis_data;
-
+        console.log(this.data)
         //set default show mode
         this.show_mode = show_mode;
 

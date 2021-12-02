@@ -292,4 +292,75 @@ class StockVis {
         Plotly.newPlot('stock_vis', data_test, layout);
     }
 
+    renderRating() {
+        d3.selectAll(".stock_chart-" +this.data.name).remove()
+        let ratings_data = this.data.ticker_rating
+
+        let data = {
+            "Rating": {
+                "0": "Buy",
+                "1": "Hold",
+                "2": "Sell"
+            },
+            "Percentage": {
+                "0": ratings_data['Buy'],
+                "1": ratings_data['Hold'],
+                "2": ratings_data['Sell']
+            }
+        };
+
+        let buy_value = parseInt(Object.values(data.Percentage)[0]);
+        let hold_value = parseInt(Object.values(data.Percentage)[1]);
+        let sell_value = parseInt(Object.values(data.Percentage)[2]);
+        let hold_value_scale = buy_value + hold_value;
+
+        let final_rate = "";
+        let final_value ="";
+        let final_color= "";
+        if (buy_value > hold_value && buy_value > sell_value) {
+            final_value = buy_value
+            final_rate = "Buy"
+            final_color = "green"
+        } else if (sell_value > hold_value && sell_value > buy_value) {
+            final_value = sell_value
+            final_rate = "Sell"
+            final_color = "red"
+        } else {
+            final_value = hold_value
+            final_rate = "Hold"
+            final_color = "yellow"
+        }
+
+        let data_test = [
+            {
+                value: final_value,
+                number: {suffix: "% "+final_rate},
+                title: { text: this.data.name +": Analyst Ratings" },
+                type: "indicator",
+                mode: "gauge+number",
+                gauge: {
+                    axis: {visible: true, range: [0,100], tickwidth: 3,
+                        tickcolor: "green"
+                    },
+                    bar: {color: "transparent"},
+                    bgcolor: "yellow",
+                    steps: [
+                        {range: [0, buy_value], color: "green"},
+                        {range: [buy_value, hold_value_scale], color: "yellow"},
+                        {range: [hold_value_scale, 100], color: "red"}
+                    ],
+                },
+            }
+        ];
+
+        var layout = {
+            width: 400,
+            height: 400,
+            margin: { t: 0, b: 0 },
+        };
+
+        Plotly.newPlot('stock_vis', data_test, layout);
+
+    }
+
 }

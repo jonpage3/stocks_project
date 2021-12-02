@@ -5,6 +5,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!--plotly to help with cher's viz -->
 <script src='https://cdn.plot.ly/plotly-2.6.3.min.js'></script>
+<!--<script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js'></script>-->
 <!--added for extra help -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
@@ -115,6 +116,7 @@ Show
     <!--<option value="CCI">CCI</option>-->
     <!--<option value="RSI">RSI</option>-->
     <option value="ohlc">OHLC</option>
+    <option value="Analyst Ratings">Analyst Ratings</option>
 
 </select>
 
@@ -167,7 +169,12 @@ Show
             let vis = new StockVis("stock_vis",data,'High');
             vis.renderOHLC();
 
-        } else {
+        } else if (show_mode == 'Analyst Ratings') {
+
+            let vis = new StockVis("stock_vis",data,'High');
+            vis.renderRating();
+
+        }else {
             let vis = new StockVis("stock_vis", data, show_mode);
             vis.render();
         }
@@ -190,7 +197,12 @@ Show
                 let vis = new StockVis("stock_vis",total_stock_data[stocks[i]],'High');
                 vis.renderOHLC();
 
-            } else {
+            } else if (show_mode == 'Analyst Ratings') {
+
+                let vis = new StockVis("stock_vis",total_stock_data[stocks[i]],'High');
+                vis.renderRating();
+
+            }else {
                 let vis = new StockVis("stock_vis", total_stock_data[stocks[i]], show_mode);
                 vis.render();
             }

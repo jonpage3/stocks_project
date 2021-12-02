@@ -55,6 +55,24 @@ def return_stock_info():
             stock_data[key][unix_string] = df_dict[key][key2]
     stock_data['name'] = name
     stock_data["stock_info"] = stock.info
+
+    #get ticker ratings
+    ticker = yf.Ticker(name)
+    ticker_rec = ticker.recommendations.loc[:,'To Grade'][(ticker.recommendations.loc[:,'To Grade'] != 'In-Line') & (ticker.recommendations.loc[:,'To Grade'] != 'Outperform') & (ticker.recommendations.loc[:,'To Grade'] != 'Underperform') & (ticker.recommendations.loc[:,'To Grade'] != 'Equal-Weight') & (ticker.recommendations.loc[:,'To Grade'] != 'Sector Perform') & (ticker.recommendations.loc[:,'To Grade'] != 'Market Perform') & (ticker.recommendations.loc[:,'To Grade'] != 'Overweight') & (ticker.recommendations.loc[:,'To Grade'] != '') & (ticker.recommendations.loc[:,'To Grade'] != 'Strong Buy') & (ticker.recommendations.loc[:,'To Grade'] != 'Positive') & (ticker.recommendations.loc[:,'To Grade'] != 'Market Outperform') & (ticker.recommendations.loc[:,'To Grade'] != 'Sector Outperform') & (ticker.recommendations.loc[:,'To Grade'] != 'Long-term Buy') & (ticker.recommendations.loc[:,'To Grade'] != 'Reduce') & (ticker.recommendations.loc[:,'To Grade'] != 'Peer Perform') & (ticker.recommendations.loc[:,'To Grade'] != 'Long-Term Buy') & (ticker.recommendations.loc[:,'To Grade'] != 'Neutral') & (ticker.recommendations.loc[:,'To Grade'] != 'Perform') & (ticker.recommendations.loc[:,'To Grade'] != 'Underweight') & (ticker.recommendations.loc[:,'To Grade'] != 'Negative') & (ticker.recommendations.loc[:,'To Grade'] != 'Sector Weight') & (ticker.recommendations.loc[:,'To Grade'] != 'Equal-weight') & (ticker.recommendations.loc[:,'To Grade'] != 'Underperformer') & (ticker.recommendations.loc[:,'To Grade'] != 'Fair Value') & (ticker.recommendations.loc[:,'To Grade'] != 'Mixed') & (ticker.recommendations.loc[:,'To Grade'] != 'Accumulate') & (ticker.recommendations.loc[:,'To Grade'] != 'Top Pick')]
+    ticker_buy = ((ticker_rec.values == "Buy").sum() / len(ticker_rec))
+    ticker_sell = ((ticker_rec.values == "Sell").sum() / len(ticker_rec))
+    ticker_hold = ((ticker_rec.values == "Hold").sum() / len(ticker_rec))
+    ticker_buy = "{:.0%}".format(ticker_buy)
+    ticker_sell = "{:.0%}".format(ticker_sell)
+    ticker_hold = "{:.0%}".format(ticker_hold)
+    ticker_rating = {}
+    ticker_rating["Buy"] = ticker_buy.removesuffix('%')
+    ticker_rating["Hold"] = ticker_hold.removesuffix('%')
+    ticker_rating["Sell"] = ticker_sell.removesuffix('%')
+
+    #put ticker_rating in stock_data
+    stock_data["ticker_rating"] = ticker_rating
+
     #uncomment to check that stock_data is right
     #print(stock_data)
     #turn stock_data dictionary into json

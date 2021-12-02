@@ -231,18 +231,61 @@ class StockVis {
 
             type: 'ohlc',
             xaxis: 'x',
-            yaxis: 'y'
+            yaxis: 'y',
+            name: 'TICKER_NAME_' + this.data.name
         };
 
         let data_test = [trace];
 
         let layout = {
             dragmode: 'zoom',
-            showlegend: false,
+            showlegend: true,
+            title: 'TICKER_NAME_' + this.data.name + ' Price Chart',
+            height: 400,
+            width: 650,
             xaxis: {
-                rangeslider: {
-                    visible: true
+                title: {
+                    text: "Years"
+                },
+                autorange: true,
+                automargin: true,
+                rangeselector: {
+                    x: 10,
+                    y: 100,
+                    activecolor: 'lime',
+                    xanchor: "auto",
+                    buttons: [{
+                        step: 'month',
+                        stepmode: 'backward',
+                        count: 1,
+                        label: '1M',
+                    }, {
+                        step: 'month',
+                        stepmode: 'backward',
+                        count: 3,
+                        label: '3M',
+                    }, {
+                        step: 'year',
+                        stepmode: 'backward',
+                        count: 1,
+                        label: '1Y',
+                    }, {
+                        step: 'all',
+                        label: 'All',
+                    }, {
+                        step: 'year',
+                        stepmode: 'todate',
+                        count: 1,
+                        label: "YTD",
+                    }]
                 }
+            },
+            yaxis: {
+                autorange: true,
+                automargin: true,
+                title: {
+                    text: "Price Per Share ($)"
+                },
             }
         };
 

@@ -9,7 +9,6 @@ from pandas_datareader._utils import RemoteDataError
 import methods
 import datetime
 import simplejson as json
-
 import sys
 import time
 import webbrowser
@@ -29,6 +28,7 @@ api.add_resource(Home,'/home')
 @app.route('/search',methods=["POST"])
 def return_stock_info():
     name = request.form.get("name")
+
     stock = yf.Ticker(name)
     #stock_info = stock.info
     yesterday = datetime.datetime.now() - datetime.timedelta(days=1)
@@ -36,9 +36,10 @@ def return_stock_info():
     df = pdr.get_data_yahoo(name, end=yesterday)
     df['ma5'] = df.loc[:, 'Close'].rolling(5).mean()
     df['ma30'] = df.loc[:, 'Close'].rolling(30).mean()
-    df = methods.get_CCI(df, 14)
-    rsi = methods.RSI(df.loc[:, 'Close'], 14)
-    df['RSI'] = rsi
+    df = methods.get_CCI(df, 14, 100000)
+    # rsi = methods.RSI(df.loc[:, 'Close'], 14)
+    # df['RSI'] = rsi
+    df = methods.RSI(df, 14, 10000)
 
     #the following code allows us to add stock data
     #to a dictionary
@@ -51,7 +52,7 @@ def return_stock_info():
         stock_data[key] = {}
         for key2,val in df_dict[key].items():
             dat_conv = key2.to_pydatetime()
-            unix_string = str(int(datetime.datetime.timestamp(dat_conv)* 1000))
+            unix_string = str(int(datetime.datetime.timestamp(dat_conv) * 1000))
             stock_data[key][unix_string] = df_dict[key][key2]
     stock_data['name'] = name
     stock_data["stock_info"] = stock.info
@@ -81,7 +82,6 @@ def return_stock_info():
     #print(stock_json)
     return stock_json
 
-    #return df.to_json()
 @app.route('/')
 def index():
     return redirect(api.url_for(Home), code=303)

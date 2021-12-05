@@ -1,4 +1,3 @@
-stocks_project demo for 641 project to show how flask (python) can integrate with javascript
+stocks_project for 641 project to show how flask (python) can integrate with javascript
 
-requirements:
-pip install -r requirements.txt
+Run Main.py getting UI. 

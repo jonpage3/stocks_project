@@ -8,7 +8,9 @@ pip install -r requirements.txt
 main.py to run software prototype. 
 
 Additional notes on stock analysis:
-methods.py for CTA
+
+methods.py for CTA;
+
 MTP.py for modern portfolio theory.
 
 

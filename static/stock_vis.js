@@ -3,7 +3,7 @@ class StockVis {
     constructor(container_id,vis_data,show_mode){
         this.container_id = container_id;
         this.data = vis_data;
-        console.log(this.data)
+
         //set default show mode
         this.show_mode = show_mode;
 
@@ -186,8 +186,9 @@ class StockVis {
         }
     }
 
-    renderOHLC () {
+    renderOHLC (plotly_div) {
         d3.selectAll(".stock_chart-" +this.data.name).remove()
+
         let data = this.data
         //my code starts here
         //clean the data first
@@ -289,11 +290,12 @@ class StockVis {
             }
         };
 
-        Plotly.newPlot('stock_vis', data_test, layout);
+        Plotly.newPlot(plotly_div, data_test, layout);
     }
 
-    renderRating() {
+    renderRating(plotly_div) {
         d3.selectAll(".stock_chart-" +this.data.name).remove()
+
         let ratings_data = this.data.ticker_rating
 
         let data = {
@@ -359,7 +361,7 @@ class StockVis {
             margin: { t: 0, b: 0 },
         };
 
-        Plotly.newPlot('stock_vis', data_test, layout);
+        Plotly.newPlot(plotly_div, data_test, layout);
 
     }
 

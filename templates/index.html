@@ -74,6 +74,9 @@
         display: inline;
         flex: 1 1 auto;
     }
+    .js-plotly-plot {
+        display: inline;
+    }
     svg {
         flex: 1 1 auto;
     }
@@ -137,6 +140,7 @@ Show
     </div>
 
     <div id="stock_vis" ></div>
+    <div id="stock_vis_plotly"></div>
 
 
 </form>
@@ -177,12 +181,22 @@ Show
             //vis.renderOHLC();
 
             let vis = new StockVis("stock_vis",data,'High');
-            vis.renderOHLC();
+            let tag = document.createElement("div");
+            //tag.classList.add('stock_chart-' + data.name)
+            tag.id = 'stock_chart-' + data.name;
+            let element = document.getElementById("stock_vis_plotly");
+            element.appendChild(tag);
+            vis.renderOHLC('stock_chart-' + data.name);
 
         } else if (show_mode == 'Analyst Ratings') {
 
             let vis = new StockVis("stock_vis",data,'High');
-            vis.renderRating();
+            let tag = document.createElement("div");
+            //tag.classList.add('stock_chart-' + data.name)
+            tag.id = 'stock_chart-' + data.name;
+            let element = document.getElementById("stock_vis_plotly");
+            element.appendChild(tag);
+            vis.renderRating('stock_chart-' + data.name);
 
         }else {
             let vis = new StockVis("stock_vis", data, show_mode);
@@ -205,12 +219,22 @@ Show
             if (show_mode == 'ohlc') {
 
                 let vis = new StockVis("stock_vis",total_stock_data[stocks[i]],'High');
-                vis.renderOHLC();
+                let tag = document.createElement("div");
+                tag.id = 'stock_chart-' + total_stock_data[stocks[i]].name;
+                //tag.classList.add('stock_chart-' + total_stock_data[stocks[i]].name);
+                let element = document.getElementById("stock_vis_plotly");
+                element.appendChild(tag);
+                vis.renderOHLC('stock_chart-' +total_stock_data[stocks[i]].name);
 
             } else if (show_mode == 'Analyst Ratings') {
 
                 let vis = new StockVis("stock_vis",total_stock_data[stocks[i]],'High');
-                vis.renderRating();
+                let tag = document.createElement("div");
+                tag.id = 'stock_chart-' + total_stock_data[stocks[i]].name;
+                //tag.classList.add('stock_chart-' + total_stock_data[stocks[i]].name);
+                let element = document.getElementById("stock_vis_plotly");
+                element.appendChild(tag);
+                vis.renderRating('stock_chart-' +total_stock_data[stocks[i]].name);
 
             }else {
                 let vis = new StockVis("stock_vis", total_stock_data[stocks[i]], show_mode);

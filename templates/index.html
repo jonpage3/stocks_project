@@ -185,6 +185,7 @@ Show
             //vis.renderOHLC();
 
             let vis = new StockVis("stock_vis",data,'High');
+            //the following code creates a div to put the plotly graphs
             let tag = document.createElement("div");
             //tag.classList.add('stock_chart-' + data.name)
             tag.id = 'stock_chart-' + data.name;
@@ -195,11 +196,13 @@ Show
         } else if (show_mode == 'Analyst Ratings') {
 
             let vis = new StockVis("stock_vis",data,'High');
+            //the following code creates a div to put the plotly graphs
             let tag = document.createElement("div");
             //tag.classList.add('stock_chart-' + data.name)
             tag.id = 'stock_chart-' + data.name;
             let element = document.getElementById("stock_vis_plotly");
             element.appendChild(tag);
+
             vis.renderRating('stock_chart-' + data.name);
 
         }else {
@@ -223,6 +226,7 @@ Show
             if (show_mode == 'ohlc') {
 
                 let vis = new StockVis("stock_vis",total_stock_data[stocks[i]],'High');
+                //the following code creates a div to put the plotly graphs
                 let tag = document.createElement("div");
                 tag.id = 'stock_chart-' + total_stock_data[stocks[i]].name;
                 //tag.classList.add('stock_chart-' + total_stock_data[stocks[i]].name);
@@ -233,6 +237,7 @@ Show
             } else if (show_mode == 'Analyst Ratings') {
 
                 let vis = new StockVis("stock_vis",total_stock_data[stocks[i]],'High');
+                //the following code creates a div to put the plotly graphs
                 let tag = document.createElement("div");
                 tag.id = 'stock_chart-' + total_stock_data[stocks[i]].name;
                 //tag.classList.add('stock_chart-' + total_stock_data[stocks[i]].name);

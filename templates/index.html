@@ -74,7 +74,11 @@
         display: inline;
         flex: 1 1 auto;
     }
+    #stock_vis_plotly{
+        float: left;
+    }
     .js-plotly-plot {
+        float: left;
         display: inline;
     }
     svg {
@@ -107,7 +111,7 @@
         $(document).ready(function() {
             var last_valid_selection = null;
             $('#stock-list').change(function(event) {
-                if ($(this).val().length > 2) {
+                if ($(this).val().length > 8) {
                     $(this).val(last_valid_selection);
                 } else {
                     last_valid_selection = $(this).val();

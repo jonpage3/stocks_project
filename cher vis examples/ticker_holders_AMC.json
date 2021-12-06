@@ -1,0 +1,38 @@
+{
+  "Holder": {
+    "0": "Vanguard Group, Inc. (The)",
+    "1": "Blackrock Inc.",
+    "2": "State Street Corporation",
+    "3": "Geode Capital Management, LLC",
+    "4": "Northern Trust Corporation",
+    "5": "Charles Schwab Investment Management, Inc.",
+    "6": "Renaissance Technologies, LLC",
+    "7": "Legal & General Group PLC",
+    "8": "Nuveen Asset Management",
+    "9": "Swiss National Bank"
+  },
+  "Shares": {
+    "0": 47190886,
+    "1": 40015669,
+    "2": 13114357,
+    "3": 8698444,
+    "4": 5779520,
+    "5": 3033813,
+    "6": 2507533,
+    "7": 2432433,
+    "8": 2339565,
+    "9": 1983241
+  },
+  "Value": {
+    "0": 1796085121,
+    "1": 1522996362,
+    "2": 499132427,
+    "3": 331062778,
+    "4": 219968531,
+    "5": 115466922,
+    "6": 95436705,
+    "7": 92578399,
+    "8": 89043843,
+    "9": 75482152
+  }
+}

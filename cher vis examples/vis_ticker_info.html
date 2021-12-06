@@ -1,0 +1,82 @@
+<html>
+<head>
+    <script src="https://d3js.org/d3.v7.min.js" charset="utf-8"></script>
+    <script src='https://cdn.plot.ly/plotly-2.6.3.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js'></script>
+
+
+</head>
+<body>
+<br/>
+<!-- This is where we'll draw the visualization! -->
+<!--<svg id="info_canvas" style="height:400px; width:600px; border: 1px solid black;"></svg>-->
+
+<div id="myDiv"></div>
+<script>
+    // ISSUES:
+    // Possibly need conversion of numbers
+        // to have commas and $ sign
+
+    let data = {
+        "Info_Title": {
+            "0": "Symbol",
+            "1": "Sector",
+            "2": "BusinessSummary",
+            "3": "Employees",
+            "4": "Website",
+            "5": "MarketCap",
+            "6": "52WeeksLow",
+            "7": "52WeeksHigh",
+            "8": "LastDividendPerShare"
+        },
+        "Info_Value": {
+            "0": "AMC",
+            "1": "Communication Services",
+            "2": "AMC Entertainment Holdings, Inc., through its subsidiaries, involved in the theatrical exhibition business. The company owns, operates, or has interests in theatres. As of March 12, 2021, it operated approximately 1000 theatres and 10,700 screens in the United States and internationally. The company was founded in 1920 and is headquartered in Leawood, Kansas.",
+            "3": 3449,
+            "4": "http:\/\/www.amctheatres.com",
+            "5": 20979795968,
+            "6": 1.91,
+            "7": 72.62,
+            "8": 0.03
+        }
+    };
+
+    let data_values = [];
+    data_values.push(Object.values(data.Info_Title))
+    data_values.push(Object.values(data.Info_Value))
+    console.log(data_values)
+
+    let data_test = [{
+        type: 'table',
+        columnorder: [1,2],
+        columnwidth: [100,300],
+        header: {
+            values: [["Information Title"], ["Information Value"]],
+            align: ["left", "center"],
+            height: 40,
+            line: {width: 1, color: '#506784'},
+            fill: {color: 'lightgrey'},
+            font: {family: "Arial", size: 12, color: "black"}
+        },
+        cells: {
+            values: data_values,
+            align: ["left", "center"],
+            height: 30,
+            line: {color: "black", width: 1},
+            fill: {color: ['grey', 'darkgrey']},
+            font: {family: "Arial", size: 11, color: ["black"]}
+        }
+    }]
+
+    let layout = {
+        title: "Information Table",
+        height: 600
+    }
+
+    Plotly.newPlot('myDiv', data_test, layout);
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<html>
+<head>
+    <script src="https://d3js.org/d3.v7.min.js" charset="utf-8"></script>
+    <script src='https://cdn.plot.ly/plotly-2.6.3.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js'></script>
+
+
+</head>
+<body>
+<br/>
+<!-- This is where we'll draw the visualization! -->
+<!--<svg id="info_canvas" style="height:400px; width:600px; border: 1px solid black;"></svg>-->
+
+<div id="myDiv"></div>
+<script>
+    // ISSUES:
+    // Possibly need legends/label/hover
+
+    let data = {
+        "Mean_Sentiment": {
+            "AMC": "0.19"
+        }
+    };
+    let value = parseFloat(Object.values(data.Mean_Sentiment));
+
+    let final_sentiment = "";
+    if (value > 0) {
+        sentiment = 1
+        tick_color = "lime"
+        final_sentiment = "Positive"
+    } else {
+        sentiment = -1
+        tick_color = "red"
+        final_sentiment = "Negative"
+    }
+    let data_test = [
+        {
+            value: value,
+            number: {suffix: " " + final_sentiment},
+            title: { text: "Sentiment" },
+            type: "indicator",
+            mode: "gauge+number",
+            gauge: {
+                bgcolor: "black",
+                axis: {visible: true, range: [0,sentiment], tickwidth: 3,
+                    tickcolor: tick_color
+                },
+                bar: {color: tick_color}
+            },
+        }
+    ];
+
+    let layout = { width: 600, height: 500, margin: { t: 0, b: 0 },
+
+    };
+    Plotly.newPlot('myDiv', data_test, layout);
+
+
+
+</script>
+</body>
+</html>

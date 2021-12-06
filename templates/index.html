@@ -44,9 +44,7 @@
         /*stroke: darkseagreen;*/
         stroke-width: 1px;
     }
-    #stock_vis {
-        float: right;
-    }
+
     .title {
         color: #E2725B;
         font-family: 'Helvetica', 'Arial', sans-serif;
@@ -61,11 +59,23 @@
         bottom: 0;
     }
 
-    #stock_vis {
-        display: inline;
+    #stock-select {
+        position: fixed;
+        display: flex;
+        /*flex-flow: column nowrap;*/
     }
 
+    #stock-list {
+
+        position: static;
+    }
+    #stock_vis {
+        float: inherit;
+        display: inline;
+        flex: 1 1 auto;
+    }
     svg {
+        flex: 1 1 auto;
     }
 </style>
 
@@ -126,12 +136,12 @@ Show
         </select>
     </div>
 
-        <div id="stock_vis" style></div>
+    <div id="stock_vis" ></div>
 
 
 </form>
-<span id="result" ></span>
-<!--<div id="stock_vis" class="stockvis"></div>-->
+
+
 
 
 

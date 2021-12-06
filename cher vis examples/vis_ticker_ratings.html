@@ -1,0 +1,80 @@
+<html>
+<head>
+    <script src="https://d3js.org/d3.v7.min.js" charset="utf-8"></script>
+    <script src='https://cdn.plot.ly/plotly-2.6.3.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js'></script>
+
+
+</head>
+<body>
+<br/>
+<!-- This is where we'll draw the visualization! -->
+<!--<svg id="info_canvas" style="height:400px; width:600px; border: 1px solid black;"></svg>-->
+
+<div id="myDiv"></div>
+<script>
+    // ISSUES:
+    // Possibly need hover info and labeling/legend
+
+    let data = {
+        "Rating": {
+            "0": "Buy",
+            "1": "Hold",
+            "2": "Sell"
+        },
+        "Percentage": {
+            "0": "74",
+            "1": "12",
+            "2": "15"
+        }
+    };
+    let buy_value = parseInt(Object.values(data.Percentage)[0]);
+    let hold_value = parseInt(Object.values(data.Percentage)[1]);
+    let sell_value = parseInt(Object.values(data.Percentage)[2]);
+    let hold_value_scale = buy_value + hold_value;
+
+    let final_rate = "";
+    if (buy_value > hold_value && buy_value > sell_value) {
+        final_value = buy_value
+        final_rate = "Buy"
+        final_color = "green"
+    } else if (sell_value > hold_value && sell_value > buy_value) {
+        final_value = sell_value
+        final_rate = "Sell"
+        final_color = "red"
+    } else {
+        final_value = hold_value
+        final_rate = "Hold"
+        final_color = "yellow"
+    }
+
+    let data_test = [
+        {
+            value: final_value,
+            number: {suffix: "% "+final_rate},
+            title: { text: "Analyst Ratings" },
+            type: "indicator",
+            mode: "gauge+number",
+            gauge: {
+                axis: {visible: true, range: [0,100], tickwidth: 3,
+                    tickcolor: "green"
+                },
+                bar: {color: "transparent"},
+                bgcolor: "yellow",
+                steps: [
+                    {range: [0, buy_value], color: "green"},
+                    {range: [buy_value, hold_value_scale], color: "yellow"},
+                    {range: [hold_value_scale, 100], color: "red"}
+                ],
+            },
+        }
+    ];
+
+    var layout = { width: 600, height: 500, margin: { t: 0, b: 0 },};
+    Plotly.newPlot('myDiv', data_test, layout);
+
+
+
+</script>
+</body>
+</html>

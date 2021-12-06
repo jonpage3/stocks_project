@@ -7,9 +7,9 @@ class StockVis {
         //set default show mode
         this.show_mode = show_mode;
 
-        this.height = 500;
-        this.width = 500;
-        this.margin = 100;
+        this.height = 350;
+        this.width = 350;
+        this.margin = 70;
         //unsure of this block of code
         this.stock_data_object = this.data[this.show_mode]
 
@@ -112,7 +112,7 @@ class StockVis {
 
         this.svg.append("g")
             .attr("class", "axis")
-            .attr("transform", "translate(0,"+(500-this.margin)+")")
+            .attr("transform", "translate(0,"+(this.height-this.margin)+")")
             .call(d3.axisBottom(this.svg.x));
 
         this.svg.append("g")
@@ -241,8 +241,8 @@ class StockVis {
             dragmode: 'zoom',
             showlegend: true,
             title: 'TICKER_NAME_' + this.data.name + ' Price Chart',
-            height: 400,
-            width: 650,
+            height: 350,
+            width: 500,
             xaxis: {
                 title: {
                     text: "Years"
@@ -354,8 +354,8 @@ class StockVis {
         ];
 
         var layout = {
-            width: 400,
-            height: 400,
+            width: 350,
+            height: 350,
             margin: { t: 0, b: 0 },
         };
 

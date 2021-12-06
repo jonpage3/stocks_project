@@ -1,0 +1,24 @@
+{
+  "Info_Title": {
+    "0": "Symbol",
+    "1": "Sector",
+    "2": "BusinessSummary",
+    "3": "Employees",
+    "4": "Website",
+    "5": "MarketCap",
+    "6": "52WeeksLow",
+    "7": "52WeeksHigh",
+    "8": "LastDividendPerShare"
+  },
+  "Info_Value": {
+    "0": "AMC",
+    "1": "Communication Services",
+    "2": "AMC Entertainment Holdings, Inc., through its subsidiaries, involved in the theatrical exhibition business. The company owns, operates, or has interests in theatres. As of March 12, 2021, it operated approximately 1000 theatres and 10,700 screens in the United States and internationally. The company was founded in 1920 and is headquartered in Leawood, Kansas.",
+    "3": 3449,
+    "4": "http:\/\/www.amctheatres.com",
+    "5": 20979795968,
+    "6": 1.91,
+    "7": 72.62,
+    "8": 0.03
+  }
+}

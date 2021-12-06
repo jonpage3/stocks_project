@@ -2,7 +2,7 @@ from flask import (Flask, Response, request, render_template, make_response,
                    redirect, url_for,jsonify)
 from flask_restful import Api, Resource, reqparse, abort
 import yfinance as yf
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import pandas as pd
 from pandas_datareader import data as pdr
 from pandas_datareader._utils import RemoteDataError

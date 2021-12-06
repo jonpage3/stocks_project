@@ -1,0 +1,96 @@
+<html>
+<head>
+    <script src="https://d3js.org/d3.v7.min.js" charset="utf-8"></script>
+    <script src='https://cdn.plot.ly/plotly-2.6.3.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js'></script>
+
+
+</head>
+<body>
+<br/>
+<!-- This is where we'll draw the visualization! -->
+<!--<svg id="info_canvas" style="height:400px; width:600px; border: 1px solid black;"></svg>-->
+
+<div id="myDiv"></div>
+<script>
+    // ISSUES:
+    // Possibly need conversion of numbers (shares and values)
+        // to have commas and $ sign
+
+    let data = {
+        "Holder": {
+            "0": "Vanguard Group, Inc. (The)",
+            "1": "Blackrock Inc.",
+            "2": "State Street Corporation",
+            "3": "Geode Capital Management, LLC",
+            "4": "Northern Trust Corporation",
+            "5": "Charles Schwab Investment Management, Inc.",
+            "6": "Renaissance Technologies, LLC",
+            "7": "Legal & General Group PLC",
+            "8": "Nuveen Asset Management",
+            "9": "Swiss National Bank"
+        },
+        "Shares": {
+            "0": 47190886,
+            "1": 40015669,
+            "2": 13114357,
+            "3": 8698444,
+            "4": 5779520,
+            "5": 3033813,
+            "6": 2507533,
+            "7": 2432433,
+            "8": 2339565,
+            "9": 1983241
+        },
+        "Value": {
+            "0": 1796085121,
+            "1": 1522996362,
+            "2": 499132427,
+            "3": 331062778,
+            "4": 219968531,
+            "5": 115466922,
+            "6": 95436705,
+            "7": 92578399,
+            "8": 89043843,
+            "9": 75482152
+        }
+    };
+
+    let data_values = [];
+    data_values.push(Object.values(data.Holder))
+    data_values.push(Object.values(data.Shares))
+    data_values.push(Object.values(data.Value))
+
+    let data_test = [{
+        type: 'table',
+        columnorder: [1,2,3],
+        columnwidth: [150,75,75],
+        header: {
+            values: [["Holder"], ["Shares"], ["Value"]],
+            align: ["left", "center", "right"],
+            height: 40,
+            line: {width: 1, color: '#506784'},
+            fill: {color: 'lightgrey'},
+            font: {family: "Arial", size: 12, color: "black"}
+        },
+        cells: {
+            values: data_values,
+            align: ["left", "center", "right"],
+            height: 30,
+            line: {color: "black", width: 1},
+            fill: {color: ['grey', 'darkgrey']},
+            font: {family: "Arial", size: 11, color: ["black"]}
+        }
+    }]
+
+    let layout = {
+        title: "Institutional Investors",
+        height: 600
+    }
+
+    Plotly.newPlot('myDiv', data_test, layout);
+
+
+</script>
+</body>
+</html>
